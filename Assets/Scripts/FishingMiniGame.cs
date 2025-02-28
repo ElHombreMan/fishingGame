@@ -1,29 +1,36 @@
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
 public class FishingMinigame : MonoBehaviour
 {
+    [Header("References to Player Scripts")]
+    public PlayerMovement playerMovement;   
+    public PlayerCam playerCam;                    
+    
+
     [Header("UI Elements")]
-    public RectTransform whiteLine;   
-    public RectTransform blueLine;    
-    public RectTransform playerLine;  
+    public GameObject fishingUI;
+    public RectTransform whiteLine;
+    public RectTransform blueLine;
+    public RectTransform playerLine;
 
     [Header("Game Settings")]
-    public float requiredOverlapTime = 5f;  
-    public float blueMoveDuration = 1.5f;    
-    public float pauseMin = 0.5f;             
-    public float pauseMax = 1.5f;             
+    public float requiredOverlapTime = 5f;
+    public float blueMoveDuration = 1.5f;
+    public float pauseMin = 0.5f;
+    public float pauseMax = 1.5f;
 
     private bool gameActive = false;
     private float overlapTimer = 0f;
 
-    
     private float whiteLineMinX, whiteLineMaxX;
 
     void Start()
     {
-        // Calculate the horizontal boundaries of the white line
+        fishingUI.SetActive(false);
+
         float halfWidth = (whiteLine.rect.width * whiteLine.lossyScale.x) / 2;
         whiteLineMinX = whiteLine.position.x - halfWidth;
         whiteLineMaxX = whiteLine.position.x + halfWidth;
@@ -31,19 +38,21 @@ public class FishingMinigame : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !gameActive)
+        // Press F to toggle the minigame on/off
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            StartMinigame();
+            if (!gameActive)
+                StartMinigame();
+            else
+                EndMinigame(); 
         }
 
         if (gameActive)
         {
-            // Update the player line's position
             Vector3 mousePos = Input.mousePosition;
             float clampedX = Mathf.Clamp(mousePos.x, whiteLineMinX, whiteLineMaxX);
             playerLine.position = new Vector3(clampedX, playerLine.position.y, playerLine.position.z);
 
-            // Check if player line overlaps with blue line
             if (IsOverlapping(playerLine, blueLine))
             {
                 overlapTimer += Time.deltaTime;
@@ -73,7 +82,38 @@ public class FishingMinigame : MonoBehaviour
     {
         gameActive = true;
         overlapTimer = 0f;
+
+        // Show the UI
+        fishingUI.SetActive(true);
+
+        // Disable player movement and camera
+        if (playerMovement) playerMovement.enabled = false;
+        if (playerCam) playerCam.enabled = false;
+        
+
+        // Unlock the mouse for UI usage
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         StartCoroutine(MoveBlueLineRoutine());
+    }
+
+    void EndMinigame()
+    {
+        gameActive = false;
+        StopAllCoroutines();
+        overlapTimer = 0f;
+
+        // Hide the UI
+        fishingUI.SetActive(false);
+
+        // Re-enable movement and camera
+        if (playerMovement) playerMovement.enabled = true;
+        if (playerCam) playerCam.enabled = true;
+
+        // Lock the mouse again
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     IEnumerator MoveBlueLineRoutine()
@@ -102,9 +142,14 @@ public class FishingMinigame : MonoBehaviour
     void GameSuccess()
     {
         gameActive = false;
-        StopAllCoroutines(); 
+        StopAllCoroutines();
         Debug.Log("Success! You kept the line in the target area for 5 seconds");
+
         
+        if (playerMovement) playerMovement.enabled = true;
+        if (playerCam) playerCam.enabled = true;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
-
