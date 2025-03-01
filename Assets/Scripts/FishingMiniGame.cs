@@ -149,6 +149,8 @@ public class FishingMinigame : MonoBehaviour
         if (playerMovement) playerMovement.enabled = true;
         if (playerCam) playerCam.enabled = true;
 
+        fishingUI.SetActive(false);
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
