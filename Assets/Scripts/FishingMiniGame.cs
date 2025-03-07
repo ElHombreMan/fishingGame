@@ -14,10 +14,12 @@ public class FishingMinigame : MonoBehaviour
     public CinemachineFreeLook freeLookCam;
     public ThirdPersonCam thirdPersonCam;
     public Transform orientation;
-    private float storedXSpeed;
-    private float storedYSpeed;
+    private float storedXMaxSpeed;
+    private float storedYMaxSpeed;
+    private float storedXValue;
+    private float storedYValue;
 
-    [Header("Time Bar")]
+[Header("Time Bar")]
     public Image timeBar;
     public float maxTime = 10f;
     private float timeLeft;
@@ -40,7 +42,10 @@ public class FishingMinigame : MonoBehaviour
 
     private float whiteLineMinX, whiteLineMaxX;
 
+    //temp
     private Quaternion storedOrientationRotation;
+    private bool overrideOrientation = false;
+    private int overrideFrames = 0;
 
     void Start()
     {
@@ -122,9 +127,11 @@ public class FishingMinigame : MonoBehaviour
         // Save the orientation's rotation
         storedOrientationRotation = orientation.rotation;
 
-        // Store the current rotation speeds
-        storedXSpeed = freeLookCam.m_XAxis.m_MaxSpeed;
-        storedYSpeed = freeLookCam.m_YAxis.m_MaxSpeed;
+        // Store the current MaxSpeeds AND Values
+        storedXMaxSpeed = freeLookCam.m_XAxis.m_MaxSpeed;
+        storedYMaxSpeed = freeLookCam.m_YAxis.m_MaxSpeed;
+        storedXValue = freeLookCam.m_XAxis.Value;
+        storedYValue = freeLookCam.m_YAxis.Value;
 
         // Lock the camera by setting speeds to 0
         freeLookCam.m_XAxis.m_MaxSpeed = 0f;
@@ -144,21 +151,25 @@ public class FishingMinigame : MonoBehaviour
 
     void EndMinigame()
     {
+
         gameActive = false;
         StopAllCoroutines();
         overlapTimer = 0f;
 
         // Restore orientation's original rotation
-        if (thirdPersonCam) thirdPersonCam.enabled = false;
         orientation.rotation = storedOrientationRotation;
         if (thirdPersonCam) StartCoroutine(ReEnableCameraNextFrame());
 
         // Hide the UI
         fishingUI.SetActive(false);
 
-        // Restore original rotation speeds
-        freeLookCam.m_XAxis.m_MaxSpeed = storedXSpeed;
-        freeLookCam.m_YAxis.m_MaxSpeed = storedYSpeed;
+        // Restore axis Value
+        freeLookCam.m_XAxis.Value = storedXValue;
+        freeLookCam.m_YAxis.Value = storedYValue;
+
+        // Restore original MaxSpeeds
+        freeLookCam.m_XAxis.m_MaxSpeed = storedXMaxSpeed;
+        freeLookCam.m_YAxis.m_MaxSpeed = storedYMaxSpeed;
 
         // Re-enable movement and camera
         if (playerMovement) playerMovement.enabled = true;

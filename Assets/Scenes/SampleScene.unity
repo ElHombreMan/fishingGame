@@ -794,9 +794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d321b0e7012794bab2da8fd68e05b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 400
-  sensY: 400
-  orientation: {fileID: 702481158}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,7 +874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36ccdc8edb92ff4f90dd9e1d784ad6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPosition: {fileID: 326091790}
 --- !u!4 &349085468
 Transform:
   m_ObjectHideFlags: 0
@@ -3270,6 +3266,7 @@ MonoBehaviour:
   playerMovement: {fileID: 1933160248}
   playerCam: {fileID: 330585548}
   freeLookCam: {fileID: 209940794}
+  thirdPersonCam: {fileID: 330585550}
   orientation: {fileID: 702481158}
   timeBar: {fileID: 144915550}
   maxTime: 10
@@ -3290,7 +3287,7 @@ Transform:
   m_GameObject: {fileID: 1645102209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 386.3145, y: 337.7789, z: 1145.5603}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
