@@ -20,9 +20,15 @@ public class ThirdPersonCam : MonoBehaviour
 
     void Update()
     {
-        // rotate orientation
+        // Calculate viewDir
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
+
+        // If distance is tiny, skip
+        // Otherwise, set orientation
+        if (viewDir.sqrMagnitude > 0.0001f)
+        {
+            orientation.forward = viewDir.normalized;
+        }
 
         // rotate player object
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -33,7 +39,5 @@ public class ThirdPersonCam : MonoBehaviour
         {
             playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
-
-        
     }
 }

@@ -2,12 +2,25 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Cinemachine;
 
 public class FishingMinigame : MonoBehaviour
 {
     [Header("References to Player Scripts")]
     public PlayerMovement playerMovement;   
-    public PlayerCam playerCam;                    
+    public PlayerCam playerCam;
+
+    [Header("Camera")]
+    public CinemachineFreeLook freeLookCam;
+    public ThirdPersonCam thirdPersonCam;
+    public Transform orientation;
+    private float storedXSpeed;
+    private float storedYSpeed;
+
+    [Header("Time Bar")]
+    public Image timeBar;
+    public float maxTime = 10f;
+    private float timeLeft;
     
 
     [Header("UI Elements")]
@@ -27,6 +40,8 @@ public class FishingMinigame : MonoBehaviour
 
     private float whiteLineMinX, whiteLineMaxX;
 
+    private Quaternion storedOrientationRotation;
+
     void Start()
     {
         fishingUI.SetActive(false);
@@ -34,6 +49,9 @@ public class FishingMinigame : MonoBehaviour
         float halfWidth = (whiteLine.rect.width * whiteLine.lossyScale.x) / 2;
         whiteLineMinX = whiteLine.position.x - halfWidth;
         whiteLineMaxX = whiteLine.position.x + halfWidth;
+
+        if (timeBar != null)
+            timeBar.fillAmount = 0f;
     }
 
     void Update()
@@ -44,11 +62,22 @@ public class FishingMinigame : MonoBehaviour
             if (!gameActive)
                 StartMinigame();
             else
-                EndMinigame(); 
+                EndMinigame();
+
         }
 
         if (gameActive)
         {
+            // Countdown logic
+            timeLeft -= Time.deltaTime;
+            if (timeLeft <= 0f)
+            {
+                LoseMinigame();
+            }
+
+            if (timeBar != null)
+                timeBar.fillAmount = timeLeft / maxTime;
+
             Vector3 mousePos = Input.mousePosition;
             float clampedX = Mathf.Clamp(mousePos.x, whiteLineMinX, whiteLineMaxX);
             playerLine.position = new Vector3(clampedX, playerLine.position.y, playerLine.position.z);
@@ -89,11 +118,26 @@ public class FishingMinigame : MonoBehaviour
         // Disable player movement and camera
         if (playerMovement) playerMovement.enabled = false;
         if (playerCam) playerCam.enabled = false;
-        
+
+        // Save the orientation's rotation
+        storedOrientationRotation = orientation.rotation;
+
+        // Store the current rotation speeds
+        storedXSpeed = freeLookCam.m_XAxis.m_MaxSpeed;
+        storedYSpeed = freeLookCam.m_YAxis.m_MaxSpeed;
+
+        // Lock the camera by setting speeds to 0
+        freeLookCam.m_XAxis.m_MaxSpeed = 0f;
+        freeLookCam.m_YAxis.m_MaxSpeed = 0f;
 
         // Unlock the mouse for UI usage
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        // Reset the countdown
+        timeLeft = maxTime;
+        if (timeBar != null)
+            timeBar.fillAmount = 1f;
 
         StartCoroutine(MoveBlueLineRoutine());
     }
@@ -104,8 +148,17 @@ public class FishingMinigame : MonoBehaviour
         StopAllCoroutines();
         overlapTimer = 0f;
 
+        // Restore orientation's original rotation
+        if (thirdPersonCam) thirdPersonCam.enabled = false;
+        orientation.rotation = storedOrientationRotation;
+        if (thirdPersonCam) StartCoroutine(ReEnableCameraNextFrame());
+
         // Hide the UI
         fishingUI.SetActive(false);
+
+        // Restore original rotation speeds
+        freeLookCam.m_XAxis.m_MaxSpeed = storedXSpeed;
+        freeLookCam.m_YAxis.m_MaxSpeed = storedYSpeed;
 
         // Re-enable movement and camera
         if (playerMovement) playerMovement.enabled = true;
@@ -114,6 +167,12 @@ public class FishingMinigame : MonoBehaviour
         // Lock the mouse again
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    IEnumerator ReEnableCameraNextFrame()
+    {
+        yield return null; // wait one frame so orientation stays
+        thirdPersonCam.enabled = true;
     }
 
     IEnumerator MoveBlueLineRoutine()
@@ -141,17 +200,14 @@ public class FishingMinigame : MonoBehaviour
 
     void GameSuccess()
     {
-        gameActive = false;
-        StopAllCoroutines();
+        EndMinigame();
         Debug.Log("Success! You kept the line in the target area for 5 seconds");
 
-        
-        if (playerMovement) playerMovement.enabled = true;
-        if (playerCam) playerCam.enabled = true;
+    }
 
-        fishingUI.SetActive(false);
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+    void LoseMinigame()
+    {
+        EndMinigame();
+        Debug.Log("You ran out of time and lost the fishing minigame!");
     }
 }
