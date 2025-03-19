@@ -85,6 +85,10 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Amplitude: 5
+    - _Amplitude1: 1.7
+    - _Amplitude2: 1.22
+    - _Amplitude3: 2.6
+    - _Amplitude4: 1.49
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -103,6 +107,7 @@ Material:
     - _GlossyReflections: 0
     - _Gravity: 9
     - _Metallic: 0
+    - _NeighborDistance: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _Phase: 0
@@ -120,10 +125,14 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.15908688, g: 0.50967556, b: 0.6132076, a: 1}
-    - _Direction2: {r: 0.1, g: 0.1, b: 0.1, a: 0}
+    - _Color: {r: 0.12904951, g: 0.5988203, b: 0.9433962, a: 1}
+    - _Direction2: {r: 0.12, g: 0, b: 0.06, a: 0}
+    - _Direction3: {r: -0.02, g: 0.09, b: -0.08, a: 0}
+    - _Direction4: {r: -0.07, g: 0.21, b: 0.12, a: 0}
+    - _DirectionOne: {r: -0.04, g: 0.18, b: 0.1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TimeScales: {r: 1.22, g: 3.12, b: 1, a: 3}
   m_BuildTextureStacks: []
 --- !u!114 &5537844545127678339
 MonoBehaviour:
