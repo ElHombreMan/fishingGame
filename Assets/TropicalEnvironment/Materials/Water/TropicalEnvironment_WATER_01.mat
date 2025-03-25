@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TropicalEnvironment_WATER_01
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - CustomNormal_Extra:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - CustomNormal_MAIN:
+        m_Texture: {fileID: 2800000, guid: 2874caf1ae931de4596e4413d8412a61, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - CausticScale: 1314
+    - DeepFoamAmount: 1.031
+    - Depth: 1
+    - Displacement: 0.2
+    - FlareDensity: 2500
+    - FlarePower: 16
+    - FlareSpeed: 1
+    - FoamAmount: 0.1
+    - FoamCut: 2
+    - FoamPosition: 5
+    - FoamScale: 5000
+    - FoamSpeed: 50
+    - NormalSpeed: 0.05
+    - NormalStrength: 0.2
+    - NormalTiling: 40
+    - Smoothness: 1
+    - Strength: 0.25
+    - Vector1_183DC44A: 100
+    - Vector1_19FCAB53: 10
+    - Vector1_24679061: 2
+    - Vector1_3FDFFF6F: 400
+    - Vector1_5B4E9BBD: 2
+    - Vector1_71984CD3: 20
+    - Vector1_7614F572: 750
+    - Vector1_829C0CD3: 1000
+    - Vector1_868C9B28: 10
+    - Vector1_A8732C35: 2
+    - Vector1_AC17F3FC: 0.1
+    - Vector1_B52E5372: 2
+    - Vector1_CB80979B: 0.5
+    - Vector1_D8DC8232: 0.5
+    - Vector1_F5797EF4: 3
+    - WaveIntensity: 0.2
+    - WaveScale: 100
+    - WaveSpeed: 500
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.414
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - Color_44E23EC9: {r: 0.9622641, g: 0.9932726, b: 1, a: 0.8666667}
+    - DeepColor: {r: 0.21960777, g: 0.56699103, b: 0.6901961, a: 0.9411765}
+    - DeepFoamColor: {r: 0.6226415, g: 0.2995728, b: 0.2995728, a: 0.92941177}
+    - FlareColor: {r: 0.41568628, g: 0.41568628, b: 0.41568628, a: 1}
+    - FoamColor: {r: 1, g: 1, b: 1, a: 0.9019608}
+    - ShallowColor: {r: 0.49902093, g: 0.8075593, b: 0.8396226, a: 0.7254902}
+    - _Color: {r: 0.43942085, g: 0.66570854, b: 0.8679245, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
