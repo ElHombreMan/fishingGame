@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -18,6 +17,7 @@ public class FishingMinigame : MonoBehaviour
     private float storedYValue;
 
     [Header("UI References")]
+    public Inventory inventory;
     public GameObject fishingUI;
     public Image timeBar;
     public RectTransform playerLine;
@@ -52,7 +52,7 @@ public class FishingMinigame : MonoBehaviour
     void Update()
     {
         // Press F to toggle the minigame on/off
-        if (Input.GetKeyDown(KeyCode.F) 
+        if (Input.GetKeyDown(KeyCode.F)
             && PlayerStateHandler.Instance.CurrentState != PlayerState.InInventory
             && PlayerStateHandler.Instance.CurrentState != PlayerState.InEscapeMenu)
         {
@@ -191,8 +191,13 @@ public class FishingMinigame : MonoBehaviour
     void GameSuccess()
     {
         EndMinigame();
-        Debug.Log("Success! You kept the line in the target area for 5 seconds");
 
+        FishData randomFish = inventory.GetRandomFish();
+        float length = randomFish.GetRandomLength();
+
+        inventory.AddFish(randomFish, length);
+
+        Debug.Log($"Caught a {randomFish.fishName} ({length:F2}m)");
     }
 
     void LoseMinigame()
