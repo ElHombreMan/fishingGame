@@ -20,7 +20,6 @@ public class AnimationStateController : MonoBehaviour
 
         //Checks if space bar is being pressed -Ed
         isJumping = Input.GetKeyDown(KeyCode.Space);
-        animator.SetTrigger("Castaway Jump"); // To trigger the jump animation -Ed
 
         // Updates the Animator parameter -Ed
         animator.SetBool("isRunning", isRunning);
