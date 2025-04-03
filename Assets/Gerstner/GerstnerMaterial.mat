@@ -99,7 +99,7 @@ Material:
     - _Amplitude: 5
     - _Amplitude1: 1.7
     - _Amplitude2: 1.22
-    - _Amplitude3: 2.6
+    - _Amplitude3: 1.6
     - _Amplitude4: 1.49
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -158,7 +158,7 @@ Material:
     - _NormalMap2Tiling: {r: 0.05, g: 0.05, b: 0, a: 0}
     - _NormalMapSpeed: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TimeScales: {r: 1.22, g: 3.12, b: 1, a: 3}
+    - _TimeScales: {r: 0.5, g: 1, b: 1, a: 2}
   m_BuildTextureStacks: []
 --- !u!114 &5537844545127678339
 MonoBehaviour:
