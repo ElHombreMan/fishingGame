@@ -18,7 +18,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         infoWindow = infoWin;
         isOccupied = true;
 
-        icon.sprite = data.image;
+        icon.sprite = data.icon;
         icon.enabled = true;
     }
 

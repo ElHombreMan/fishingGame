@@ -10,6 +10,7 @@ public class FishData : ScriptableObject
     public string rarity;
     [TextArea] public string description;
     public Sprite image;
+    public Sprite icon;
 
     // Get a random length within the min/max range
     public float GetRandomLength()
