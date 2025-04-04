@@ -114,8 +114,12 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _Foam_Bands: 1.02
+    - _Foam_Falloff: 0.92
+    - _Foam_Removal: 0
+    - _Foam_Width: 0.87
     - _FrothHeight: 5
-    - _FrothPower: -1
+    - _FrothPower: 12.77
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -151,7 +155,7 @@ Material:
     - _DirectionOne: {r: -0.04, g: 0.18, b: 0.1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamSpeed: {r: 0.2, g: 0.2, b: 0, a: 0}
-    - _FrothColor: {r: 0.99056596, g: 0.99056596, b: 0.99056596, a: 0}
+    - _FrothColor: {r: 1, g: 1, b: 1, a: 0}
     - _FrothTextureTiling: {r: 0, g: 0, b: 0, a: 0}
     - _NormalMap1Tiling: {r: 0.05, g: 0.05, b: 0, a: 0}
     - _NormalMap2Speed: {r: -0.1, g: -0.1, b: 0, a: 0}
