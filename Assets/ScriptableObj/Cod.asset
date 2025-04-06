@@ -15,7 +15,8 @@ MonoBehaviour:
   fishName: Cod
   minLength: 1
   maxLength: 4
-  basePrice: 1
+  basePrice: 15
   rarity: Rare
   description: cod
-  image: {fileID: 21300000, guid: b103729f574cfa9499feae78ef91faf0, type: 3}
+  image: {fileID: 21300000, guid: 0cef45992792d334da4d0983ad03aa72, type: 3}
+  icon: {fileID: 21300000, guid: a586c6f27feb04e4b84e1b22365a2a85, type: 3}

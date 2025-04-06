@@ -125,4 +125,13 @@ public class PlayerMovement : MonoBehaviour
     {
         readyToJump = true;
     }
+
+ // Add this method to expose grounded status
+    public bool IsGrounded()
+    {
+        return grounded;
+    }
+
 }
+
+

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Tuna
   m_EditorClassIdentifier: 
   fishName: Tuna
-  minLength: 1
-  maxLength: 5
-  basePrice: 2
-  rarity: Epic
+  minLength: 100
+  maxLength: 300
+  basePrice: 50
+  rarity: Leg
   description: tuna
-  image: {fileID: 21300000, guid: 068e73708ef46b24ab5d6865957a4294, type: 3}
+  image: {fileID: 21300000, guid: 74ad3a865adf15149aa7fc1f5793819c, type: 3}
+  icon: {fileID: 21300000, guid: 71a1c2a190acdd54a88087c2a2a95bbc, type: 3}
