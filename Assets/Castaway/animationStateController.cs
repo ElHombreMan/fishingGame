@@ -5,8 +5,10 @@ using UnityEngine;
 public class AnimationStateController : MonoBehaviour
 {
     private Animator animator;
-    private bool isRunning; 
+    private bool isRunning;
     private bool isJumping;
+    public bool isThrowingRod; // holding left click
+    private bool isIdle;
 
     void Start()
     {
@@ -15,21 +17,39 @@ public class AnimationStateController : MonoBehaviour
 
     void Update()
     {
-        //Checks if any of the movement keys are being pressed
+        // Check for movement (running)
         isRunning = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
 
-        //Checks if space bar is being pressed
-        isJumping = Input.GetKeyDown(KeyCode.Space);
+        // Check for jump input
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isJumping = true;
+        }
 
-        // Updates the Animator parameters
-        animator.SetBool("isRunning", isRunning);
-        animator.SetBool("isJumping", isJumping);
+        // Check if left mouse is held (for throwing rod)
+        isThrowingRod = Input.GetMouseButton(0);
+        animator.SetBool("isThrowingRod", isThrowingRod);
 
-        // Reset the jump status after a frame to avoid "sticking" in the jumping state
+        // Compute idle status
+        isIdle = !isRunning && !isJumping;
+
+        // If the player is throwing the rod, don't set the regular movement animations
+        if (isThrowingRod)
+        {
+            animator.SetBool("isThrowingRunning", isRunning);
+            animator.SetBool("isThrowingJumping", isJumping);
+        }
+        else
+        {
+            // Only set running/jumping/idle if NOT throwing rod
+            animator.SetBool("isRunning", isRunning);
+            animator.SetBool("isJumping", isJumping);
+            animator.SetBool("isIdle", isIdle);
+        }
+
+        // Reset jump after one frame to prevent staying in jump state
         if (isJumping)
         {
-            // After setting the "isJumping" flag to true, reset it in the next frame.
-            // This prevents it from staying true after the initial jump input.
             isJumping = false;
         }
     }
