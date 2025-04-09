@@ -13,9 +13,19 @@ public class AnimationStateController : MonoBehaviour
     private bool isResettingFromCast = false;
     private bool canCast = true;
 
+    // 🎣 Rod sound references
+    public AudioSource chargingAudioSource;
+    public AudioSource castAudioSource;
+    public AudioSource pullBackAudioSource; // ← NEW
+
     void Start()
     {
         animator = GetComponent<Animator>();
+
+        // Optional safety check
+        if (chargingAudioSource == null) Debug.LogWarning("Charging AudioSource is not assigned.");
+        if (castAudioSource == null) Debug.LogWarning("Cast AudioSource is not assigned.");
+        if (pullBackAudioSource == null) Debug.LogWarning("Pull Back AudioSource is not assigned.");
     }
 
     void Update()
@@ -37,6 +47,10 @@ public class AnimationStateController : MonoBehaviour
             hasCastRod = false;
             isResettingFromCast = true;
             canCast = false;
+
+            // 🔊 Play pull-back sound
+            if (pullBackAudioSource)
+                pullBackAudioSource.Play();
         }
 
         // Start casting only if not resetting and allowed
@@ -47,6 +61,13 @@ public class AnimationStateController : MonoBehaviour
                 Debug.Log("Started charging rod...");
                 animator.SetTrigger("startRodCharge");
                 isThrowingRod = true;
+
+                // 🔊 Start charging sound
+                if (chargingAudioSource && !chargingAudioSource.isPlaying)
+                {
+                    chargingAudioSource.PlayOneShot(chargingAudioSource.clip);
+                }
+
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -56,6 +77,14 @@ public class AnimationStateController : MonoBehaviour
                 isThrowingRod = false;
                 hasCastRod = true;
                 canCast = false;
+
+                // 🔇 Stop charging sound
+                if (chargingAudioSource && chargingAudioSource.isPlaying)
+                    chargingAudioSource.Stop();
+
+                // 🔊 Play cast sound
+                if (castAudioSource)
+                    castAudioSource.Play();
             }
         }
 
@@ -70,12 +99,8 @@ public class AnimationStateController : MonoBehaviour
         // Handle movement/idle
         isIdle = !isRunning && !isJumping;
 
-        if (isThrowingRod)
-        {
-            animator.SetBool("isThrowingRunning", isRunning);
-            animator.SetBool("isThrowingJumping", isJumping);
-        }
-        else
+        // Only set movement-related parameters if not in throwing state
+        if (!isThrowingRod)
         {
             animator.SetBool("isRunning", isRunning);
             animator.SetBool("isJumping", isJumping);
