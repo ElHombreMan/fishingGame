@@ -93,7 +93,14 @@ public class AnimationStateController : MonoBehaviour
             Debug.Log("Back to idle, you can cast again!");
             FinishReset();
         }
+<<<<<<< Updated upstream
     }
+
+    public void FinishReset()
+    {
+        isResettingFromCast = false;
+        canCast = true;
+=======
 
     public void FinishReset()
     {
