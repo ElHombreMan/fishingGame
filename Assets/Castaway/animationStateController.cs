@@ -86,6 +86,7 @@ public class AnimationStateController : MonoBehaviour
         {
             isJumping = false;
         }
+<<<<<<< HEAD
 
         // ✅ Check if we've returned to Idle so we can cast again
         if (!canCast && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
@@ -108,3 +109,7 @@ public class AnimationStateController : MonoBehaviour
         canCast = true;
     }
 }
+=======
+    }
+}
+>>>>>>> main

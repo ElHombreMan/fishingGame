@@ -25,15 +25,16 @@ public class FishingMinigame : MonoBehaviour
     public RectTransform whiteLine;
 
     [Header("Settings")]
+    public float fillingSpeed = 0.7f;
     public float maxTime = 10f;
-    public float requiredOverlapTime = 5f;
     public float blueMoveDuration = 1.5f;
     public float pauseMin = 0.5f;
-    public float pauseMax = 1.5f;
+    public float pauseMax = 1f;
 
+    private bool canPlay = false;
     private float timeLeft;
     private bool gameActive = false;
-    private float overlapTimer = 0f;
+    
 
     private float whiteLineMinX, whiteLineMaxX;
 
@@ -57,41 +58,52 @@ public class FishingMinigame : MonoBehaviour
             && PlayerStateHandler.Instance.CurrentState != PlayerState.InEscapeMenu)
         {
             if (!gameActive)
-                StartMinigame();
+                StartCoroutine(DelayedStart(1f)); // Delay start
             else
                 EndMinigame();
-
         }
 
         if (gameActive)
         {
-            // Countdown logic
-            timeLeft -= Time.deltaTime;
-            if (timeLeft <= 0f)
+            // Always allow player line movement
+            Vector3 mousePos = Input.mousePosition;
+            float clampedX = Mathf.Clamp(mousePos.x, whiteLineMinX, whiteLineMaxX);
+            playerLine.position = new Vector3(clampedX, playerLine.position.y, playerLine.position.z);
+
+            if (!canPlay) return; // Don’t update time or anything else until after delay
+
+            // Game is activestart updating time
+            if (IsOverlapping(playerLine, blueLine))
             {
-                LoseMinigame();
+                timeLeft += Time.deltaTime * fillingSpeed; 
+            }
+            else
+            {
+                // Drain faster the closer you are to the top
+                float drainMultiplier = Mathf.Lerp(1f, 3f, timeLeft / maxTime);
+                timeLeft -= Time.deltaTime * drainMultiplier;
             }
 
             if (timeBar != null)
                 timeBar.fillAmount = timeLeft / maxTime;
 
-            Vector3 mousePos = Input.mousePosition;
-            float clampedX = Mathf.Clamp(mousePos.x, whiteLineMinX, whiteLineMaxX);
-            playerLine.position = new Vector3(clampedX, playerLine.position.y, playerLine.position.z);
-
-            if (IsOverlapping(playerLine, blueLine))
+            if (timeLeft >= maxTime)
             {
-                overlapTimer += Time.deltaTime;
-                if (overlapTimer >= requiredOverlapTime)
-                {
-                    GameSuccess();
-                }
+                GameSuccess();
             }
-            else
+            else if (timeLeft <= 0f)
             {
-                overlapTimer = 0f;
+                LoseMinigame();
             }
         }
+    }
+
+    IEnumerator DelayedStart(float delay)
+    {
+        StartMinigame(); 
+        yield return new WaitForSeconds(delay);
+        canPlay = true;                         
+        StartCoroutine(MoveBlueLineRoutine());
     }
 
     bool IsOverlapping(RectTransform a, RectTransform b)
@@ -108,38 +120,33 @@ public class FishingMinigame : MonoBehaviour
     {
         PlayerStateHandler.Instance.ChangeState(PlayerState.InMiniGame);
         gameActive = true;
-        overlapTimer = 0f;
-
-        // Show the UI
+        canPlay = false; 
+        
         fishingUI.SetActive(true);
 
-        // Store the current MaxSpeeds AND Values
+        // Lock the camera
         storedXMaxSpeed = freeLookCam.m_XAxis.m_MaxSpeed;
         storedYMaxSpeed = freeLookCam.m_YAxis.m_MaxSpeed;
         storedXValue = freeLookCam.m_XAxis.Value;
         storedYValue = freeLookCam.m_YAxis.Value;
 
-        // Lock the camera by setting speeds to 0
         freeLookCam.m_XAxis.m_MaxSpeed = 0f;
         freeLookCam.m_YAxis.m_MaxSpeed = 0f;
 
-        // Unlock the mouse for UI usage
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // Reset the countdown
-        timeLeft = maxTime;
+        // Start bar at half
+        timeLeft = maxTime / 2f;
         if (timeBar != null)
-            timeBar.fillAmount = 1f;
-
-        StartCoroutine(MoveBlueLineRoutine());
+            timeBar.fillAmount = 0.5f;
     }
 
     void EndMinigame()
     {
         gameActive = false;
         StopAllCoroutines();
-        overlapTimer = 0f;
+      
 
         // Hide the UI
         fishingUI.SetActive(false);
