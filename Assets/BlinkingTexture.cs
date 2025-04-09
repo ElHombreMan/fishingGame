@@ -1,52 +1,55 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
-public class BlinkingTexture : MonoBehaviour
+public class EyeBlink : MonoBehaviour
 {
-    [Header("Material Settings")]
-    public Material openEyesMaterial;   // Material for eyes opened
+    public Material openEyesMaterial;  // Material for eyes opened
     public Material closedEyesMaterial; // Material for eyes closed
-    public float minBlinkTime = 0.1f;  // Minimum interval between blinks (eyes closing)
-    public float maxBlinkTime = 0.2f;  // Maximum interval between blinks (eyes closing)
-    public float timeEyesClosed = 0.05f; // Time the eyes stay closed (blink duration)
+    public float blinkInterval = 2.0f; // Time between blinks
+    public float blinkDuration = 0.1f; // How long the blink lasts
 
-    private Renderer objectRenderer;
+    private Renderer rend;
 
     void Start()
     {
-        // Get the Renderer component from the object this script is attached to
-        objectRenderer = GetComponent<Renderer>();
+        // Get the Renderer component
+        rend = GetComponent<Renderer>();
+
+        // Ensure the materials are assigned
+        if (openEyesMaterial == null || closedEyesMaterial == null)
+        {
+            Debug.LogError("Eye materials not assigned!");
+            return;
+        }
 
         // Start the blinking coroutine
-        StartCoroutine(Blinking());
+        StartCoroutine(BlinkRoutine());
     }
 
-    IEnumerator Blinking()
+    IEnumerator BlinkRoutine()
     {
         while (true)
         {
-            // Wait for a random time before closing the eyes
-            float waitTime = Random.Range(minBlinkTime, maxBlinkTime);
-            yield return new WaitForSeconds(waitTime);
+            // Wait for the interval before the next blink
+            yield return new WaitForSeconds(blinkInterval);
 
-            // Change the material to closed eyes
-            Material[] materials = objectRenderer.sharedMaterials;
-            for (int i = 0; i < materials.Length; i++)
-            {
-                materials[i] = closedEyesMaterial;
-            }
-            objectRenderer.sharedMaterials = materials;
+            // Start blink: close the eyes
+            SetEyeMaterial(closedEyesMaterial);
 
-            // Wait for a very short time (blink duration) before reopening the eyes
-            yield return new WaitForSeconds(timeEyesClosed);
+            // Wait for the blink duration
+            yield return new WaitForSeconds(blinkDuration);
 
-            // Change the material to open eyes
-            for (int i = 0; i < materials.Length; i++)
-            {
-                materials[i] = openEyesMaterial;
-            }
-            objectRenderer.sharedMaterials = materials;
+            // Open the eyes after the blink
+            SetEyeMaterial(openEyesMaterial);
 
+            // Wait for the interval before the next blink
+            yield return new WaitForSeconds(blinkInterval);
         }
+    }
+
+    void SetEyeMaterial(Material material)
+    {
+        // Change the material of the eye
+        rend.material = material;
     }
 }
