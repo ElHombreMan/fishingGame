@@ -10,7 +10,6 @@ public class PlayerSoundController : MonoBehaviour
     [Header("Footstep Settings")]
     public float footstepInterval = 0.5f; // Interval between steps
     public Vector2 pitchRange = new Vector2(0.9f, 1.1f); // Random pitch range
-    private float footstepDelayBuffer = 0.1f; // Small buffer to ensure no double-play
     private float lastFootstepTime = 0f; // Store the last time a footstep was played
 
     [Header("References")]
