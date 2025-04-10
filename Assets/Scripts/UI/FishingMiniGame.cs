@@ -98,7 +98,7 @@ public class FishingMinigame : MonoBehaviour
         }
     }
 
-    IEnumerator DelayedStart(float delay)
+    public IEnumerator DelayedStart(float delay)
     {
         StartMinigame(); 
         yield return new WaitForSeconds(delay);
@@ -162,6 +162,8 @@ public class FishingMinigame : MonoBehaviour
         // Lock the mouse again
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        FindObjectOfType<FishingRod>().ReelBack();
 
         PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
     }
