@@ -52,6 +52,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-7106604565793553935
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: e2f56f9b067dffc4a8a794e6460ee8be
+  m_EffectName: Attenuation
+  m_MixLevel: 54f6b23af884f9d4aaf62a3c2963c329
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &-5475493447979972140
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -165,6 +179,20 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-686220777285451250
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: f530c8c52c9f96f45b087bcf41177607
+  m_EffectName: Attenuation
+  m_MixLevel: ac65292275c2cdf4e9ba134f6ef96741
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -192,6 +220,8 @@ AudioMixerController:
     - 5acf7eea794919b40a021f2c801a1b4e
     - 36683a3561ffed14588f318e2d11f403
     - 643809c4ed848ad449140cf51077e094
+    - 3aa0d41310b517f44bc4474db8c83e75
+    - 4c7d0d32c5031b84ba3aebd6bb6e11a1
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -213,6 +243,8 @@ AudioMixerGroupController:
   - {fileID: -8806393213979515148}
   - {fileID: 3918721425920314763}
   - {fileID: -7209233434724013041}
+  - {fileID: 470161176256430620}
+  - {fileID: 1674253252238295099}
   m_Volume: 01c82c8ad71ce4f449e157b4874e8fb2
   m_Pitch: ef8b497b40ed97d4ebe3cccb015e1691
   m_Send: 00000000000000000000000000000000
@@ -248,6 +280,44 @@ AudioMixerSnapshotController:
   m_FloatValues:
     d626ec48e86a3674cac5e85a55d561b9: -4.9356437
   m_TransitionOverrides: {}
+--- !u!243 &470161176256430620
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BobberInWater
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 3aa0d41310b517f44bc4474db8c83e75
+  m_Children: []
+  m_Volume: 7f1aa400c5c063643b6696df12085c94
+  m_Pitch: d1265a322c29c9f42a9fd0b552598e8b
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -7106604565793553935}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &1674253252238295099
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FishCaughtSuccess
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 4c7d0d32c5031b84ba3aebd6bb6e11a1
+  m_Children: []
+  m_Volume: cf18a88a476ba7c45acd3bd645da9395
+  m_Pitch: c5e4a13713e3d7548a8ee376afdfa7f3
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -686220777285451250}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &3918721425920314763
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
