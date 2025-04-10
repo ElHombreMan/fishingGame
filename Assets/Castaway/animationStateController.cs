@@ -5,7 +5,7 @@ public class AnimationStateController : MonoBehaviour
 {
     private Animator animator;
     private bool isRunning;
-    private bool isJumping;
+    public bool isJumping;
     public bool isThrowingRod;
     private bool isIdle;
 
@@ -16,13 +16,15 @@ public class AnimationStateController : MonoBehaviour
     // 🎣 Rod sound references
     public AudioSource chargingAudioSource;
     public AudioSource castAudioSource;
-    public AudioSource pullBackAudioSource; // ← NEW
+    public AudioSource pullBackAudioSource;
+
+    // 💨 Jump dust effect
+    public GameObject jumpDustEffectPrefab;
 
     void Start()
     {
         animator = GetComponent<Animator>();
 
-        // Optional safety check
         if (chargingAudioSource == null) Debug.LogWarning("Charging AudioSource is not assigned.");
         if (castAudioSource == null) Debug.LogWarning("Cast AudioSource is not assigned.");
         if (pullBackAudioSource == null) Debug.LogWarning("Pull Back AudioSource is not assigned.");
@@ -30,16 +32,22 @@ public class AnimationStateController : MonoBehaviour
 
     void Update()
     {
-        // Movement input
         isRunning = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
 
-        // Jump input
+        // 🟩 Jump input
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isJumping = true;
+
+            // 💨 Spawn jump smoke effect
+            if (jumpDustEffectPrefab != null)
+            {
+                Vector3 spawnPosition = transform.position + Vector3.up * 0.35f;
+                Instantiate(jumpDustEffectPrefab, spawnPosition, Quaternion.identity);
+            }
         }
 
-        // If we just finished casting, press again to reset
+        // 🐟 Reset cast state
         if (hasCastRod && Input.GetMouseButtonDown(0))
         {
             Debug.Log("Resetting from cast...");
@@ -48,12 +56,10 @@ public class AnimationStateController : MonoBehaviour
             isResettingFromCast = true;
             canCast = false;
 
-            // 🔊 Play pull-back sound
             if (pullBackAudioSource)
                 pullBackAudioSource.Play();
         }
 
-        // Start casting only if not resetting and allowed
         if (canCast && !hasCastRod && !isResettingFromCast)
         {
             if (Input.GetMouseButtonDown(0))
@@ -62,12 +68,8 @@ public class AnimationStateController : MonoBehaviour
                 animator.SetTrigger("startRodCharge");
                 isThrowingRod = true;
 
-                // 🔊 Start charging sound
                 if (chargingAudioSource && !chargingAudioSource.isPlaying)
-                {
                     chargingAudioSource.PlayOneShot(chargingAudioSource.clip);
-                }
-
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -78,17 +80,14 @@ public class AnimationStateController : MonoBehaviour
                 hasCastRod = true;
                 canCast = false;
 
-                // 🔇 Stop charging sound
                 if (chargingAudioSource && chargingAudioSource.isPlaying)
                     chargingAudioSource.Stop();
 
-                // 🔊 Play cast sound
                 if (castAudioSource)
                     castAudioSource.Play();
             }
         }
 
-        // Reset throwing flag if not holding
         if (!Input.GetMouseButton(0) && !hasCastRod)
         {
             isThrowingRod = false;
@@ -96,10 +95,8 @@ public class AnimationStateController : MonoBehaviour
 
         animator.SetBool("isThrowingRod", isThrowingRod);
 
-        // Handle movement/idle
         isIdle = !isRunning && !isJumping;
 
-        // Only set movement-related parameters if not in throwing state
         if (!isThrowingRod)
         {
             animator.SetBool("isRunning", isRunning);
@@ -112,7 +109,6 @@ public class AnimationStateController : MonoBehaviour
             isJumping = false;
         }
 
-        // ✅ Check if we've returned to Idle so we can cast again
         if (!canCast && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             Debug.Log("Back to idle, you can cast again!");
