@@ -15,6 +15,7 @@ public class FishingRodController : MonoBehaviour
     public AudioSource failSound;      // reset
     public AudioSource splashSound;    // bobber in water
     public AudioSource successSound;   // minigame win
+    public AudioSource failureSound; // minigame fail 
 
     [Header("Settings")]
     public Vector3 bobberOffset = new Vector3(0, 0.3f, 0);
@@ -123,6 +124,7 @@ public class FishingRodController : MonoBehaviour
 
     public void OnMinigameFail()
     {
+        failureSound.Play();
         ReelBack();
     }
 
