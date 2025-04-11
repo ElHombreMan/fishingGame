@@ -50,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(PlayerStateHandler.Instance.CurrentState != PlayerState.InEscapeMenu &&
             PlayerStateHandler.Instance.CurrentState != PlayerState.InMiniGame && 
-            PlayerStateHandler.Instance.CurrentState != PlayerState.InInventory)
+            PlayerStateHandler.Instance.CurrentState != PlayerState.InInventory &&
+            PlayerStateHandler.Instance.CurrentState != PlayerState.RodCharging)
         {
             MyInput();
             SpeedControl();
@@ -68,7 +69,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PlayerStateHandler.Instance.CurrentState != PlayerState.InEscapeMenu &&
             PlayerStateHandler.Instance.CurrentState != PlayerState.InMiniGame &&
-            PlayerStateHandler.Instance.CurrentState != PlayerState.InInventory)
+            PlayerStateHandler.Instance.CurrentState != PlayerState.InInventory &&
+            PlayerStateHandler.Instance.CurrentState != PlayerState.RodCharging)
             MovePlayer();
     }
 

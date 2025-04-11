@@ -10,7 +10,7 @@ public class FishingRodController : MonoBehaviour
     public FishingMinigame fishingMinigame;
 
     [Header("Sounds")]
-    public AudioSource chargingSound;  // loop
+    public AudioSource chargingSound;  
     public AudioSource castSound;      // fly sound
     public AudioSource failSound;      // reset
     public AudioSource splashSound;    // bobber in water
@@ -34,6 +34,7 @@ public class FishingRodController : MonoBehaviour
         {
             chargeTimer = 0f;
             isCharging = true;
+            PlayerStateHandler.Instance.ChangeState(PlayerState.RodCharging);
         }
 
         if (Input.GetMouseButton(0) && isCharging)
@@ -90,6 +91,7 @@ public class FishingRodController : MonoBehaviour
         isCharging = false;
         chargingSound.Stop();
         chargeTimer = 0f;
+        PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
         // No animation, no sound
     }
 
