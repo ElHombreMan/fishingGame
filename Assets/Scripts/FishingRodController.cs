@@ -108,12 +108,19 @@ public class FishingRodController : MonoBehaviour
 
         animator.SetTrigger("resetFromCast");
         failSound.Play();
+
+        StartCoroutine(DelayedIdleState());
+    }
+    private System.Collections.IEnumerator DelayedIdleState()
+    {
+        yield return new WaitForSeconds(1f);
+        PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
     }
 
     public void OnBobberLandedOnWater()
     {
         splashSound.Play();
-        fishingMinigame.StartCoroutine(fishingMinigame.DelayedStart(1f));
+        fishingMinigame.StartCoroutine(fishingMinigame.DelayedStart(0.7f));
     }
 
     public void OnMinigameSuccess()
