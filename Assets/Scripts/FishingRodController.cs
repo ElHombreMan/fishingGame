@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class FishingRodController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class FishingRodController : MonoBehaviour
     public Transform rodTip;
     public GameObject bobberPrefab;
     public FishingMinigame fishingMinigame;
+    public LineRenderer fishingLine;
 
     [Header("Sounds")]
     public AudioSource chargingSound;  
@@ -22,7 +24,7 @@ public class FishingRodController : MonoBehaviour
     public float maxCharge = 3f;
     public float throwForceMultiplier = 10f;
     public float minChargeToThrow = 0.3f;
-
+    
     private float chargeTimer = 0f;
     private bool isCharging = false;
     private GameObject currentBobber;
@@ -61,6 +63,12 @@ public class FishingRodController : MonoBehaviour
                 ResetSilent();
             }
         }
+
+        if (currentBobber)
+        {
+            fishingLine.SetPosition(0, rodTip.position);
+            fishingLine.SetPosition(1, currentBobber.transform.position);
+        }
     }
 
     bool CanFish()
@@ -80,6 +88,9 @@ public class FishingRodController : MonoBehaviour
 
         currentBobber = Instantiate(bobberPrefab, rodTip.position + bobberOffset, Quaternion.LookRotation(orientation.forward));
         currentBobber.GetComponent<Bobber>().Setup(this);
+
+        fishingLine.enabled = true;
+        fishingLine.positionCount = 2;
 
         Rigidbody rb = currentBobber.GetComponent<Rigidbody>();
         rb.AddForce(orientation.forward * chargeTimer * throwForceMultiplier, ForceMode.Impulse);
@@ -104,6 +115,8 @@ public class FishingRodController : MonoBehaviour
             currentBobber = null;
         }
 
+        fishingLine.enabled = false;
+
         ResetAllTriggers();
 
         animator.SetTrigger("resetFromCast");
@@ -120,6 +133,14 @@ public class FishingRodController : MonoBehaviour
     public void OnBobberLandedOnWater()
     {
         splashSound.Play();
+
+        StartCoroutine(WaitBeforeMinigame());
+    }
+    private IEnumerator WaitBeforeMinigame()
+    {
+        float waitTime = Random.Range(5f, 20f);
+        yield return new WaitForSeconds(waitTime);
+
         fishingMinigame.StartCoroutine(fishingMinigame.DelayedStart(0.7f));
     }
 
