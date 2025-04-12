@@ -28,7 +28,6 @@ public class AnimationStateController : MonoBehaviour
         if (!CanMove())
         {
             animator.SetBool("isRunning", false);
-            animator.SetBool("isJumping", false);
             animator.SetBool("isIdle", true);
         }
         else
@@ -42,16 +41,18 @@ public class AnimationStateController : MonoBehaviour
         isRunning = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
         grounded = playerMovement.IsGrounded();
 
+        // Handle Jump Trigger
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             isJumping = true;
-            animator.SetTrigger("Jump");  // Play jump animation once
+            animator.SetTrigger("Jump");
         }
 
         if (isJumping && grounded && rb.velocity.y <= 0.1f)
+        {
             isJumping = false;
+        }
 
-        //animator.SetBool("isJumping", isJumping);
         animator.SetBool("isRunning", isRunning && !isJumping && grounded);
         animator.SetBool("isIdle", !isRunning && !isJumping);
     }
