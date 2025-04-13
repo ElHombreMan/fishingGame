@@ -31,6 +31,7 @@ public class FishingMinigame : MonoBehaviour
     private float timeLeft;
     private float whiteLineMinX, whiteLineMaxX;
     private float storedXMaxSpeed, storedYMaxSpeed, storedXValue, storedYValue;
+    private string currentFishRarity;
 
     void Start()
     {
@@ -63,6 +64,40 @@ public class FishingMinigame : MonoBehaviour
             return;
 
         HandleTimer();
+    }
+
+    public void SetDifficulty(string rarity)
+    {
+        switch (rarity)
+        {
+            case "Common":
+                blueLine.sizeDelta = new Vector2(75f, blueLine.sizeDelta.y);
+                blueMoveDuration = 2f;
+                pauseMin = 1f;
+                pauseMax = 1.5f;
+                break;
+
+            case "Rare":
+                blueLine.sizeDelta = new Vector2(65f, blueLine.sizeDelta.y);
+                blueMoveDuration = 1.5f;
+                pauseMin = 0.8f;
+                pauseMax = 1.2f;
+                break;
+
+            case "Epic":
+                blueLine.sizeDelta = new Vector2(45f, blueLine.sizeDelta.y);
+                blueMoveDuration = 1f;
+                pauseMin = 0.5f;
+                pauseMax = 1f;
+                break;
+
+            case "Leg":
+                blueLine.sizeDelta = new Vector2(30f, blueLine.sizeDelta.y);
+                blueMoveDuration = 0.7f;
+                pauseMin = 0.3f;
+                pauseMax = 0.5f;
+                break;
+        }
     }
 
     bool CanToggle()
@@ -109,9 +144,14 @@ public class FishingMinigame : MonoBehaviour
         canPlay = false;
         fishingUI.SetActive(true);
 
+        blueLine.position = whiteLine.position;
+
         StoreCameraState();
         LockCamera();
         ShowCursor();
+
+        currentFishRarity = fishingRodController.GetFishRarity();
+        SetDifficulty(currentFishRarity);
 
         timeLeft = maxTime / 2f;
         if (timeBar != null)
@@ -200,7 +240,10 @@ public class FishingMinigame : MonoBehaviour
     void GameSuccess()
     {
         EndMinigame();
-        inventory.AddFish(inventory.GetRandomFish(), inventory.GetRandomFish().GetRandomLength());
+
+        FishData fish = inventory.GetRandomFishByRarity(currentFishRarity);
+        inventory.AddFish(fish, fish.GetRandomLength());
+
         fishingRodController.OnMinigameSuccess();
     }
 

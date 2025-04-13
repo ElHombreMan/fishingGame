@@ -1,6 +1,22 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+public enum RodType
+{
+    Basic,
+    Better,
+    Best
+}
+
+[System.Serializable]
+public class RodChances
+{
+    public float commonChance;
+    public float rareChance;
+    public float epicChance;
+    public float legendaryChance;
+}
+
 public class FishingRodController : MonoBehaviour
 {
     [Header("References")]
@@ -26,9 +42,18 @@ public class FishingRodController : MonoBehaviour
     public float throwForceMultiplier = 10f;
     public float minChargeToThrow = 0.3f;
 
+    [Header("Rarity Settings")]
+    public RodType currentRod = RodType.Basic;
+    public RodChances basicRodChances;
+    public RodChances betterRodChances;
+    public RodChances bestRodChances;
+
+
     private float chargeTimer = 0f;
     private bool isCharging = false;
     private GameObject currentBobber;
+
+
 
     void Update()
     {
@@ -70,6 +95,48 @@ public class FishingRodController : MonoBehaviour
             fishingLine.SetPosition(0, rodTip.position);
             fishingLine.SetPosition(1, currentBobber.transform.position);
         }
+
+        // just for testing, delete later
+        HandleRodSwitching();
+    }
+    // just for testing, delete later
+    void HandleRodSwitching()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            currentRod = RodType.Basic;
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            currentRod = RodType.Better;
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            currentRod = RodType.Best;
+
+        Debug.Log("Current Rod: " + currentRod);
+    }
+
+    public string GetFishRarity()
+    {
+        RodChances chances = basicRodChances; // default
+
+        switch (currentRod)
+        {
+            case RodType.Basic:
+                chances = basicRodChances;
+                break;
+            case RodType.Better:
+                chances = betterRodChances;
+                break;
+            case RodType.Best:
+                chances = bestRodChances;
+                break;
+        }
+
+        float rng = Random.Range(0f, 100f);
+
+        if (rng <= chances.legendaryChance) return "Leg";
+        if (rng <= chances.legendaryChance + chances.epicChance) return "Epic";
+        if (rng <= chances.legendaryChance + chances.epicChance + chances.rareChance) return "Rare";
+        return "Common";
     }
 
     bool CanFish()
