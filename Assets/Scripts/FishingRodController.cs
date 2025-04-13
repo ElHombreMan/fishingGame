@@ -34,6 +34,7 @@ public class FishingRodController : MonoBehaviour
     public AudioSource splashSound;
     public AudioSource successSound;
     public AudioSource failureSound;
+    public AudioSource reelingSound;
 
 
     [Header("Settings")]
@@ -110,8 +111,6 @@ public class FishingRodController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             currentRod = RodType.Best;
-
-        Debug.Log("Current Rod: " + currentRod);
     }
 
     public string GetFishRarity()
@@ -240,10 +239,14 @@ public class FishingRodController : MonoBehaviour
     public void StartReeling()
     {
         animator.SetBool("isReeling", true);
+        if (!reelingSound.isPlaying)
+        reelingSound.Play();
     }
 
     public void StopReeling()
     {
         animator.SetBool("isReeling", false);
+        if (reelingSound.isPlaying)
+        reelingSound.Stop();
     }
 }
