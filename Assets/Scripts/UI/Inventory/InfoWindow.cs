@@ -16,7 +16,7 @@ public class InfoWindow : MonoBehaviour
         iconImage.sprite = data.image;
         rarityText.text = "Rarity: " + data.rarity;
         priceText.text = "Price: $" + data.GetCost(length);
-        sizeText.text = "Size: " + length.ToString("F2") + " m";
+        sizeText.text = "Size: " + length.ToString("F2") + " in.";
 
         gameObject.SetActive(true);
     }

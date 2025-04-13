@@ -7,11 +7,14 @@ public class Bobber : MonoBehaviour
 
     public void Setup(FishingRodController fishingRod)
     {
+        Debug.DrawRay(transform.position, Vector3.down * 10f, Color.red, 5f);
         rod = fishingRod;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Bobber hit: " + collision.gameObject.name + " | Tag: " + collision.gameObject.tag);
+
         if (hasLanded) return;
         hasLanded = true;
 

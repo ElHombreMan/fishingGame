@@ -12,19 +12,20 @@ public class FishingRodController : MonoBehaviour
     public LineRenderer fishingLine;
 
     [Header("Sounds")]
-    public AudioSource chargingSound;  
-    public AudioSource castSound;      // fly sound
-    public AudioSource failSound;      // reset
-    public AudioSource splashSound;    // bobber in water
-    public AudioSource successSound;   // minigame win
-    public AudioSource failureSound; // minigame fail 
+    public AudioSource chargingSound;
+    public AudioSource castSound;
+    public AudioSource failSound;
+    public AudioSource splashSound;
+    public AudioSource successSound;
+    public AudioSource failureSound;
+
 
     [Header("Settings")]
-    public Vector3 bobberOffset = new Vector3(0, 0.3f, 0);
+    public Vector3 bobberOffset = new Vector3(0, 2f, 0);
     public float maxCharge = 3f;
     public float throwForceMultiplier = 10f;
     public float minChargeToThrow = 0.3f;
-    
+
     private float chargeTimer = 0f;
     private bool isCharging = false;
     private GameObject currentBobber;
@@ -104,7 +105,6 @@ public class FishingRodController : MonoBehaviour
         chargingSound.Stop();
         chargeTimer = 0f;
         PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
-        // No animation, no sound
     }
 
     public void ReelBack()
@@ -122,37 +122,43 @@ public class FishingRodController : MonoBehaviour
         animator.SetTrigger("resetFromCast");
         failSound.Play();
 
+        StopReeling(); // ⬅️ stop reeling animation
+
         StartCoroutine(DelayedIdleState());
     }
-    private System.Collections.IEnumerator DelayedIdleState()
+
+    private IEnumerator DelayedIdleState()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
     }
 
     public void OnBobberLandedOnWater()
     {
         splashSound.Play();
-
         StartCoroutine(WaitBeforeMinigame());
     }
+
     private IEnumerator WaitBeforeMinigame()
     {
         float waitTime = Random.Range(5f, 20f);
         yield return new WaitForSeconds(waitTime);
 
+        StartReeling(); // ⬅️ start reeling animation
         fishingMinigame.StartCoroutine(fishingMinigame.DelayedStart(0.7f));
     }
 
     public void OnMinigameSuccess()
     {
         successSound.Play();
+        StopReeling(); // ⬅️ stop reeling animation
         ReelBack();
     }
 
     public void OnMinigameFail()
     {
         failureSound.Play();
+        StopReeling(); // ⬅️ stop reeling animation
         ReelBack();
     }
 
@@ -161,5 +167,16 @@ public class FishingRodController : MonoBehaviour
         animator.ResetTrigger("startRodCharge");
         animator.ResetTrigger("releaseRodCast");
         animator.ResetTrigger("resetFromCast");
+    }
+
+    // 🎣 Reeling control methods
+    public void StartReeling()
+    {
+        animator.SetBool("isReeling", true);
+    }
+
+    public void StopReeling()
+    {
+        animator.SetBool("isReeling", false);
     }
 }
