@@ -16,7 +16,7 @@ MonoBehaviour:
   minLength: 1
   maxLength: 3
   basePrice: 5
-  rarity: Basic
+  rarity: Common
   description: 
   image: {fileID: 21300000, guid: c55f535abd9187c4a87febebc1d79ead, type: 3}
   icon: {fileID: 21300000, guid: 0ef7a1ae4c7beb8439bb3beb8b53567e, type: 3}

@@ -16,7 +16,7 @@ MonoBehaviour:
   minLength: 36
   maxLength: 120
   basePrice: 5
-  rarity: Basic
+  rarity: Leg
   description: tuna
   image: {fileID: 21300000, guid: 74ad3a865adf15149aa7fc1f5793819c, type: 3}
   icon: {fileID: 21300000, guid: 71a1c2a190acdd54a88087c2a2a95bbc, type: 3}
