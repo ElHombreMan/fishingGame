@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image icon;
-    private FishData fishData;
-    private float caughtLength;
+    public FishData fishData;
+    public float caughtLength;
     private InfoWindow infoWindow;
 
     public bool isOccupied = false;
