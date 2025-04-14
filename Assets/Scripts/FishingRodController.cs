@@ -53,8 +53,7 @@ public class FishingRodController : MonoBehaviour
     private float chargeTimer = 0f;
     private bool isCharging = false;
     private GameObject currentBobber;
-
-
+    private Coroutine waitingForMinigameCoroutine;
 
     void Update()
     {
@@ -95,12 +94,16 @@ public class FishingRodController : MonoBehaviour
         {
             fishingLine.SetPosition(0, rodTip.position);
             fishingLine.SetPosition(1, currentBobber.transform.position);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                ReelBack();
+            }
         }
 
-        // just for testing, delete later
         HandleRodSwitching();
     }
-    // just for testing, delete later
+
     void HandleRodSwitching()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -150,6 +153,12 @@ public class FishingRodController : MonoBehaviour
         isCharging = false;
         chargingSound.Stop();
 
+        if (waitingForMinigameCoroutine != null)
+        {
+            StopCoroutine(waitingForMinigameCoroutine);
+            waitingForMinigameCoroutine = null;
+        }
+
         animator.SetTrigger("releaseRodCast");
         castSound.Play();
 
@@ -175,6 +184,12 @@ public class FishingRodController : MonoBehaviour
 
     public void ReelBack()
     {
+        if (waitingForMinigameCoroutine != null)
+        {
+            StopCoroutine(waitingForMinigameCoroutine);
+            waitingForMinigameCoroutine = null;
+        }
+
         if (currentBobber)
         {
             Destroy(currentBobber);
@@ -202,7 +217,7 @@ public class FishingRodController : MonoBehaviour
     public void OnBobberLandedOnWater()
     {
         splashSound.Play();
-        StartCoroutine(WaitBeforeMinigame());
+        waitingForMinigameCoroutine = StartCoroutine(WaitBeforeMinigame());
     }
 
     private IEnumerator WaitBeforeMinigame()
@@ -240,13 +255,13 @@ public class FishingRodController : MonoBehaviour
     {
         animator.SetBool("isReeling", true);
         if (!reelingSound.isPlaying)
-        reelingSound.Play();
+            reelingSound.Play();
     }
 
     public void StopReeling()
     {
         animator.SetBool("isReeling", false);
         if (reelingSound.isPlaying)
-        reelingSound.Stop();
+            reelingSound.Stop();
     }
 }
