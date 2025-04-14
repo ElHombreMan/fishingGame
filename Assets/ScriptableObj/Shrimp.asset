@@ -15,7 +15,7 @@ MonoBehaviour:
   fishName: Shrimp
   minLength: 1
   maxLength: 3
-  basePrice: 4
+  basePrice: 5
   rarity: Common
   description: 
   image: {fileID: 21300000, guid: 0700eef9a50081941afa1d4ea126e7a7, type: 3}
