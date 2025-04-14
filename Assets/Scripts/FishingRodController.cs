@@ -54,6 +54,7 @@ public class FishingRodController : MonoBehaviour
     private bool isCharging = false;
     private GameObject currentBobber;
     private Coroutine waitingForMinigameCoroutine;
+    [HideInInspector] public FishData currentFish;
 
     void Update()
     {
@@ -100,10 +101,10 @@ public class FishingRodController : MonoBehaviour
                 ReelBack();
             }
         }
-
+        // for testing delete later
         HandleRodSwitching();
     }
-
+    // for testing delete later
     void HandleRodSwitching()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -216,6 +217,8 @@ public class FishingRodController : MonoBehaviour
     public void OnBobberLandedOnWater()
     {
         splashSound.Play();
+        string rarity = GetFishRarity();
+        currentFish = fishingMinigame.inventory.GetRandomFishByRarity(rarity);
         waitingForMinigameCoroutine = StartCoroutine(WaitBeforeMinigame());
     }
 

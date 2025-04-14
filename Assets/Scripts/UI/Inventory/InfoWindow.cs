@@ -24,13 +24,13 @@ public class InfoWindow : MonoBehaviour
             case "Common":
                 infoWindowReference.sprite = commonBG;
                 break;
-            case "Uncommon":
+            case "Rare":
                 infoWindowReference.sprite = rareBG;
                 break;
-            case "Legendary":
+            case "Leg":
                 infoWindowReference.sprite = legendaryBG;
                 break;
-            case "Rare":
+            case "Epic":
                 infoWindowReference.sprite = epicBG;
                 break;
 

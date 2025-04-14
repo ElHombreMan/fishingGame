@@ -78,7 +78,7 @@ public class FishingMinigame : MonoBehaviour
                 break;
 
             case "Rare":
-                blueLine.sizeDelta = new Vector2(65f, blueLine.sizeDelta.y);
+                blueLine.sizeDelta = new Vector2(60f, blueLine.sizeDelta.y);
                 blueMoveDuration = 1.5f;
                 pauseMin = 0.8f;
                 pauseMax = 1.2f;
@@ -86,14 +86,14 @@ public class FishingMinigame : MonoBehaviour
 
             case "Epic":
                 blueLine.sizeDelta = new Vector2(45f, blueLine.sizeDelta.y);
-                blueMoveDuration = 1f;
+                blueMoveDuration = 1.2f;
                 pauseMin = 0.5f;
                 pauseMax = 1f;
                 break;
 
             case "Leg":
                 blueLine.sizeDelta = new Vector2(30f, blueLine.sizeDelta.y);
-                blueMoveDuration = 0.7f;
+                blueMoveDuration = 0.9f;
                 pauseMin = 0.3f;
                 pauseMax = 0.5f;
                 break;
@@ -150,7 +150,7 @@ public class FishingMinigame : MonoBehaviour
         LockCamera();
         ShowCursor();
 
-        currentFishRarity = fishingRodController.GetFishRarity();
+        currentFishRarity = fishingRodController.currentFish.rarity;
         SetDifficulty(currentFishRarity);
 
         timeLeft = maxTime / 2f;
@@ -241,8 +241,7 @@ public class FishingMinigame : MonoBehaviour
     {
         EndMinigame();
 
-        FishData fish = inventory.GetRandomFishByRarity(currentFishRarity);
-        inventory.AddFish(fish, fish.GetRandomLength());
+        inventory.AddFish(fishingRodController.currentFish, fishingRodController.currentFish.GetRandomLength());
 
         fishingRodController.OnMinigameSuccess();
     }
