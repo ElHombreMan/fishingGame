@@ -199,11 +199,10 @@ public class FishingRodController : MonoBehaviour
         fishingLine.enabled = false;
 
         ResetAllTriggers();
-
-        animator.SetTrigger("resetFromCast");
+        animator.SetTrigger("cancelCast");
         failSound.Play();
 
-        StopReeling(); // ⬅️ stop reeling animation
+        StopReeling();
 
         StartCoroutine(DelayedIdleState());
     }
