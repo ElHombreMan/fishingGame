@@ -4,6 +4,7 @@ public class Bobber : MonoBehaviour
 {
     private bool hasLanded = false;
     private FishingRodController rod;
+    private Animator animator;
 
     public void Setup(FishingRodController fishingRod)
     {
@@ -30,7 +31,18 @@ public class Bobber : MonoBehaviour
         else
         {
             rod.ReelBack();
+            ResetAllTriggers();
+            rod.animator.SetTrigger("cancelCast");
+            rod.animator.SetTrigger("ResetFromCast");
         }
+     }
+
+    private void ResetAllTriggers()
+    {
+        rod.animator.ResetTrigger("startRodCharge");
+        rod.animator.ResetTrigger("releaseRodCast");
+        rod.animator.ResetTrigger("resetFromCast");
     }
+
 }
 
