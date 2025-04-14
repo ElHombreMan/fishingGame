@@ -7,7 +7,11 @@ public class InventoryToggle : MonoBehaviour
 
     [Header("UI References")]
     public InfoWindow infoWindow;
-    public GameObject inventoryPanel; 
+    public GameObject inventoryPanel;
+
+    [Header("Audio")]
+    public AudioSource openSound;
+    public AudioSource closeSound;
 
     private bool isOpen = false;
     private float storedXSpeed;
@@ -34,20 +38,27 @@ public class InventoryToggle : MonoBehaviour
         Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isOpen;
 
+        // Play sound
+        if (isOpen && openSound != null)
+        {
+            openSound.Play();
+        }
+        else if (!isOpen && closeSound != null)
+        {
+            closeSound.Play();
+        }
+
         // Handle camera lock
         if (isOpen)
         {
-            // Save current values
             storedXSpeed = freeLookCam.m_XAxis.m_MaxSpeed;
             storedYSpeed = freeLookCam.m_YAxis.m_MaxSpeed;
 
-            // Lock camera
             freeLookCam.m_XAxis.m_MaxSpeed = 0f;
             freeLookCam.m_YAxis.m_MaxSpeed = 0f;
         }
         else
         {
-            // Restore camera
             freeLookCam.m_XAxis.m_MaxSpeed = storedXSpeed;
             freeLookCam.m_YAxis.m_MaxSpeed = storedYSpeed;
 
