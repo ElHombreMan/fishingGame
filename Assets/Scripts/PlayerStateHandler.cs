@@ -12,7 +12,8 @@ public enum PlayerState
     InMiniGame,
     InInventory,
     InEscapeMenu,
-    RodCharging
+    RodCharging,
+    InShop
 }
 
 public class PlayerStateHandler : MonoBehaviour

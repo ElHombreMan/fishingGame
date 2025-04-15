@@ -47,13 +47,13 @@ public class FishingMinigame : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && CanToggle())
+        /*if (Input.GetKeyDown(KeyCode.F) && CanToggle())
         {
             if (!gameActive)
                 StartCoroutine(DelayedStart(1f));
             else
                 EndMinigame();
-        }
+        }*/
 
         if (!gameActive)
             return;
@@ -103,7 +103,8 @@ public class FishingMinigame : MonoBehaviour
     bool CanToggle()
     {
         return PlayerStateHandler.Instance.CurrentState != PlayerState.InInventory &&
-               PlayerStateHandler.Instance.CurrentState != PlayerState.InEscapeMenu;
+               PlayerStateHandler.Instance.CurrentState != PlayerState.InEscapeMenu &&
+               PlayerStateHandler.Instance.CurrentState != PlayerState.InShop;
     }
 
     void HandlePlayerLineMovement()

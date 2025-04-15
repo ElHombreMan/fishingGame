@@ -23,7 +23,10 @@ public class InventoryToggle : MonoBehaviour
         {
             PlayerState currentState = PlayerStateHandler.Instance.CurrentState;
 
-            if (!isOpen && (currentState == PlayerState.InMiniGame || currentState == PlayerState.InEscapeMenu || currentState == PlayerState.InInventory))
+            if (!isOpen && (currentState == PlayerState.InMiniGame ||
+                currentState == PlayerState.InEscapeMenu ||
+                currentState == PlayerState.InInventory ||
+                currentState == PlayerState.InShop))
                 return;
 
             ToggleInventory();
