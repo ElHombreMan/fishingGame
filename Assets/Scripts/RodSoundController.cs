@@ -11,7 +11,7 @@ public class RodSoundController : MonoBehaviour
     {
         if (chargingAudioSource && !chargingAudioSource.isPlaying)
         {
-            chargingAudioSource.loop = true;
+            chargingAudioSource.loop = false;
             chargingAudioSource.Play();
         }
     }

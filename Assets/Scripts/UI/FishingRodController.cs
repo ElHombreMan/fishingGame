@@ -50,6 +50,8 @@ public class FishingRodController : MonoBehaviour
     public RodChances betterRodChances;
     public RodChances bestRodChances;
 
+     [Header("UI")]
+    [SerializeField] private ChargingMeter chargingMeter;
 
     private float chargeTimer = 0f;
     private bool isCharging = false;
@@ -77,6 +79,7 @@ public class FishingRodController : MonoBehaviour
             {
                 chargingSound.Play();
                 animator.SetTrigger("startRodCharge");
+                chargingMeter.StartCharging();
             }
         }
 
@@ -164,6 +167,8 @@ public class FishingRodController : MonoBehaviour
 
         animator.SetTrigger("releaseRodCast");
         castSound.Play();
+        chargingMeter.StopCharging();
+
 
         currentBobber = Instantiate(bobberPrefab, rodTip.position + bobberOffset, Quaternion.LookRotation(orientation.forward));
         currentBobber.GetComponent<Bobber>().Setup(this);
@@ -226,7 +231,7 @@ public class FishingRodController : MonoBehaviour
 
     private IEnumerator WaitBeforeMinigame()
     {
-        float waitTime = Random.Range(5f, 20f);
+        float waitTime = Random.Range(5f, 10f);
         yield return new WaitForSeconds(waitTime);
 
         if (inventoryToggle != null && inventoryToggle.inventoryPanel.activeSelf)
