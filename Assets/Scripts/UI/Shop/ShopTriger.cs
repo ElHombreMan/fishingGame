@@ -5,6 +5,7 @@ public class ShopTrigger : MonoBehaviour
 {
     public CinemachineFreeLook freeLookCam;
     public GameObject shopUI;
+    public GameObject interactionButton;
     private bool isPlayerNear = false;
     private float storedXMaxSpeed, storedYMaxSpeed, storedXValue, storedYValue;
 
@@ -21,15 +22,11 @@ public class ShopTrigger : MonoBehaviour
                 ShowCursor();
 
                 shopUI.SetActive(true);
+                interactionButton.SetActive(false);
             }
             else if (shopUI.activeSelf)
             {
-                shopUI.SetActive(false);
-
-                RestoreCameraState();
-                HideCursor();
-
-                PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
+                ShopExit();
             }
             
         }
@@ -40,7 +37,7 @@ public class ShopTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = true;
-            
+            interactionButton.SetActive(true);
         }
     }
 
@@ -49,13 +46,23 @@ public class ShopTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = false;
-            shopUI.SetActive(false); // Close shop when leaving
+            interactionButton.SetActive(false);
+            ShopExit();
+        }
+    }
 
-            RestoreCameraState();
-            HideCursor();
+    public void ShopExit()
+    {
+        shopUI.SetActive(false); // Close shop when leaving
 
-            PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
+        RestoreCameraState();
+        HideCursor();
 
+        PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
+
+        if (isPlayerNear)
+        {
+            interactionButton.SetActive(true);
         }
     }
 

@@ -103,10 +103,10 @@ public class FishingRodController : MonoBehaviour
             }
         }
         // for testing delete later
-        HandleRodSwitching();
+        //HandleRodSwitching();
     }
     // for testing delete later
-    void HandleRodSwitching()
+   /* void HandleRodSwitching()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
             currentRod = RodType.Basic;
@@ -116,7 +116,7 @@ public class FishingRodController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             currentRod = RodType.Best;
-    }
+    }*/
 
     public string GetFishRarity()
     {
