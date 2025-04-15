@@ -16,7 +16,7 @@ MonoBehaviour:
   minLength: 26
   maxLength: 58
   basePrice: 25
-  rarity: Rare
+  rarity: Epic
   description: 
   image: {fileID: 21300000, guid: 7c68c0d0e076bd8439ab3125b4a6845f, type: 3}
   icon: {fileID: 21300000, guid: 190f8e8e1849e1646b08d0dc955f2e05, type: 3}
