@@ -26,6 +26,7 @@ public class FishingRodController : MonoBehaviour
     public GameObject bobberPrefab;
     public FishingMinigame fishingMinigame;
     public LineRenderer fishingLine;
+    public InventoryToggle inventoryToggle;
 
     [Header("Sounds")]
     public AudioSource chargingSound;
@@ -226,6 +227,11 @@ public class FishingRodController : MonoBehaviour
     {
         float waitTime = Random.Range(5f, 20f);
         yield return new WaitForSeconds(waitTime);
+
+        if (inventoryToggle != null && inventoryToggle.inventoryPanel.activeSelf)
+        {
+            inventoryToggle.SendMessage("ToggleInventory"); // Calls ToggleInventory() from InventoryToggle.cs
+        }
 
         StartReeling(); // ⬅️ start reeling animation
         fishingMinigame.StartCoroutine(fishingMinigame.DelayedStart(0.7f));
