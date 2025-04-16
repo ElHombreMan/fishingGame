@@ -7,9 +7,15 @@ public class ShopTrigger : MonoBehaviour
     public GameObject shopUI;
     public GameObject interactionButton;
     private bool isPlayerNear = false;
-    private float storedXMaxSpeed, storedYMaxSpeed, storedXValue, storedYValue;
+    private float storedXMaxSpeed, storedYMaxSpeed;
     public AudioSource shopBell;
     public AudioSource KeyPressed;
+
+    private void Start()
+    {
+        storedXMaxSpeed = freeLookCam.m_XAxis.m_MaxSpeed;
+        storedYMaxSpeed = freeLookCam.m_YAxis.m_MaxSpeed;
+    }
 
     private void Update()
     {
@@ -75,8 +81,6 @@ public class ShopTrigger : MonoBehaviour
     {
         storedXMaxSpeed = freeLookCam.m_XAxis.m_MaxSpeed;
         storedYMaxSpeed = freeLookCam.m_YAxis.m_MaxSpeed;
-        storedXValue = freeLookCam.m_XAxis.Value;
-        storedYValue = freeLookCam.m_YAxis.Value;
     }
 
     void LockCamera()
