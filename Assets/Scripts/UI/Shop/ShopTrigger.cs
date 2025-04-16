@@ -3,13 +3,17 @@ using UnityEngine;
 
 public class ShopTrigger : MonoBehaviour
 {
+    [Header("References")]
     public CinemachineFreeLook freeLookCam;
     public GameObject shopUI;
     public GameObject interactionButton;
-    private bool isPlayerNear = false;
-    private float storedXMaxSpeed, storedYMaxSpeed;
+
+    [Header("Audio")]
     public AudioSource shopBell;
     public AudioSource KeyPressed;
+
+    private bool isPlayerNear = false;
+    private float storedXMaxSpeed, storedYMaxSpeed;
 
     private void Start()
     {
@@ -17,7 +21,7 @@ public class ShopTrigger : MonoBehaviour
         storedYMaxSpeed = freeLookCam.m_YAxis.m_MaxSpeed;
     }
 
-    private void Update()
+    void Update()
     {
         if (isPlayerNear && Input.GetKeyDown(KeyCode.E))
         {
@@ -33,13 +37,29 @@ public class ShopTrigger : MonoBehaviour
                 shopBell.Play();
                 shopUI.SetActive(true);
                 interactionButton.SetActive(false);
+
+                // First time shop dialogue
+                if (!ShopStateManager.Current.hasOpenedShop)
+                {
+                    ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
+                    if (dialogue != null)
+                    {
+                        dialogue.PlayLine(0);
+                    }
+
+                    ShopStateManager.Current.hasOpenedShop = true;
+                    ShopStateManager.Save();
+                }
             }
             else if (shopUI.activeSelf)
             {
+                ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
+                if (dialogue != null)
+                    dialogue.StopLine();
+
                 ShopExit();
                 KeyPressed.Play();
             }
-            
         }
     }
 
@@ -75,6 +95,11 @@ public class ShopTrigger : MonoBehaviour
         {
             interactionButton.SetActive(true);
         }
+
+        // This remains just in case it’s called from other places too
+        ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
+        if (dialogue != null)
+            dialogue.StopLine();
     }
 
     void StoreCameraState()
