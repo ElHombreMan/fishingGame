@@ -7,10 +7,14 @@ public class ShopShipButton : MonoBehaviour
     public Sprite defaultSprite;
     public Sprite boughtSprite;
     public Inventory inventory;
+    public GameObject prefabToSpawn; 
+    public Transform spawnPoint;
+
+
 
     private bool isBought = false;
     private Image buttonImage;
-
+    
     void Awake()
     {
         buttonImage = GetComponent<Image>();
@@ -18,6 +22,7 @@ public class ShopShipButton : MonoBehaviour
 
     void Start()
     {
+        prefabToSpawn.SetActive(false);
         buttonImage.sprite = inventory.boughtShip ? boughtSprite : defaultSprite;
         isBought = inventory.boughtShip;
     }
@@ -35,6 +40,7 @@ public class ShopShipButton : MonoBehaviour
             buttonImage.sprite = boughtSprite;
 
             ShipIsBought();
+            prefabToSpawn.SetActive(true);
 
             inventory.UpdateMoneyText();
             inventory.SaveInventory();
@@ -45,6 +51,13 @@ public class ShopShipButton : MonoBehaviour
 
     void ShipIsBought()
     {
-        //end game logic
+        void SpawnPrefab()
+    {
+        if (prefabToSpawn != null && spawnPoint != null)
+        {
+        Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
+        }
+    }
+
     }
 }
