@@ -14,8 +14,8 @@ public class InfoWindow : MonoBehaviour
     public Image infoWindowReference;
     public Sprite commonBG;
     public Sprite legendaryBG;
+    public Sprite uncommonBG;
     public Sprite rareBG;
-    public Sprite epicBG;
 
     public void Show(FishData data, float length)
     {
@@ -24,14 +24,14 @@ public class InfoWindow : MonoBehaviour
             case "Common":
                 infoWindowReference.sprite = commonBG;
                 break;
-            case "Rare":
-                infoWindowReference.sprite = rareBG;
+            case "Uncommon":
+                infoWindowReference.sprite = uncommonBG;
                 break;
-            case "Leg":
+            case "Legendary":
                 infoWindowReference.sprite = legendaryBG;
                 break;
-            case "Epic":
-                infoWindowReference.sprite = epicBG;
+            case "Rare":
+                infoWindowReference.sprite = rareBG;
                 break;
 
         }

@@ -16,7 +16,7 @@ MonoBehaviour:
   minLength: 36
   maxLength: 120
   basePrice: 50
-  rarity: Leg
+  rarity: Legendary
   description: 
   image: {fileID: 21300000, guid: 323291ac46514e34f808cee4ccda3f39, type: 3}
   icon: {fileID: 21300000, guid: 71a1c2a190acdd54a88087c2a2a95bbc, type: 3}

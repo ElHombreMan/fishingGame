@@ -27,6 +27,9 @@ public class FishingRodController : MonoBehaviour
     public FishingMinigame fishingMinigame;
     public LineRenderer fishingLine;
     public InventoryToggle inventoryToggle;
+    [SerializeField] private MovingTargetVisual fishVisualController;
+
+
 
     [Header("Sounds")]
     public AudioSource chargingSound;
@@ -140,9 +143,9 @@ public class FishingRodController : MonoBehaviour
 
         float rng = Random.Range(0f, 100f);
 
-        if (rng <= chances.legendaryChance) return "Leg";
-        if (rng <= chances.legendaryChance + chances.epicChance) return "Epic";
-        if (rng <= chances.legendaryChance + chances.epicChance + chances.rareChance) return "Rare";
+        if (rng <= chances.legendaryChance) return "Legendary";
+        if (rng <= chances.legendaryChance + chances.epicChance) return "Rare";
+        if (rng <= chances.legendaryChance + chances.epicChance + chances.rareChance) return "Uncommon";
         return "Common";
     }
 
@@ -219,6 +222,7 @@ public class FishingRodController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         PlayerStateHandler.Instance.ChangeState(PlayerState.Idle);
+        Debug.Log("Set player state to Idle");
     }
 
     public void OnBobberLandedOnWater()
@@ -227,6 +231,10 @@ public class FishingRodController : MonoBehaviour
         string rarity = GetFishRarity();
         currentFish = fishingMinigame.inventory.GetRandomFishByRarity(rarity);
         waitingForMinigameCoroutine = StartCoroutine(WaitBeforeMinigame());
+        if (fishVisualController != null)
+        {
+            fishVisualController.SetFishVisual(rarity);
+        }
     }
 
     private IEnumerator WaitBeforeMinigame()
