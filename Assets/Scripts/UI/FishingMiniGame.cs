@@ -71,31 +71,31 @@ public class FishingMinigame : MonoBehaviour
         switch (rarity)
         {
             case "Common":
-                blueLine.sizeDelta = new Vector2(75f, blueLine.sizeDelta.y);
+                blueLine.sizeDelta = new Vector2(30f, blueLine.sizeDelta.y);
                 blueMoveDuration = 2f;
-                pauseMin = 1f;
-                pauseMax = 1.5f;
+                pauseMin = 0.7f;
+                pauseMax = 0.9f;
+                break;
+
+            case "Uncommon":
+                blueLine.sizeDelta = new Vector2(30f, blueLine.sizeDelta.y);
+                blueMoveDuration = 1.5f;
+                pauseMin = 0.5f;
+                pauseMax = 0.7f;
                 break;
 
             case "Rare":
-                blueLine.sizeDelta = new Vector2(60f, blueLine.sizeDelta.y);
-                blueMoveDuration = 1.5f;
-                pauseMin = 0.8f;
-                pauseMax = 1.2f;
-                break;
-
-            case "Epic":
-                blueLine.sizeDelta = new Vector2(45f, blueLine.sizeDelta.y);
-                blueMoveDuration = 1.2f;
-                pauseMin = 0.5f;
-                pauseMax = 1f;
-                break;
-
-            case "Leg":
                 blueLine.sizeDelta = new Vector2(30f, blueLine.sizeDelta.y);
-                blueMoveDuration = 0.9f;
+                blueMoveDuration = 1f;
                 pauseMin = 0.3f;
                 pauseMax = 0.5f;
+                break;
+
+            case "Legendary":
+                blueLine.sizeDelta = new Vector2(30f, blueLine.sizeDelta.y);
+                blueMoveDuration = 0.5f;
+                pauseMin = 0.1f;
+                pauseMax = 0.3f;
                 break;
         }
     }
