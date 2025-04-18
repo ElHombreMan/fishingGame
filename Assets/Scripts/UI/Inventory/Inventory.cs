@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 
 public class Inventory : MonoBehaviour
+
 {
     [Header("Inventory")]
     public InventorySlot[] slots;
@@ -23,6 +24,9 @@ public class Inventory : MonoBehaviour
     public int addMoneyAmount = 0;
     public bool addMoneyInEditor = false;
     public bool resetShopInEditor = false;
+    private bool hasSoldFish = false;
+
+
 
     [System.Serializable]
     private class InventorySaveData
@@ -46,9 +50,10 @@ public class Inventory : MonoBehaviour
     // just for testing, must be deleted later
     void Update()
     {
-        if (resetShopInEditor)//only after reload
+        if (resetShopInEditor) // only after reload
         {
             resetShopInEditor = false;
+            hasSoldFish = false;
             ResetShop();
         }
 
@@ -61,6 +66,7 @@ public class Inventory : MonoBehaviour
             Debug.Log("Added " + addMoneyAmount + " money.");
         }
     }
+
 
     public void AddFish(FishData fish, float length)
     {
@@ -122,7 +128,28 @@ public class Inventory : MonoBehaviour
         UpdateMoneyText();
 
         Debug.Log("Sold all fish for $" + totalMoney);
-    }
+                    ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
+
+            if (dialogue != null)
+            {
+                if (hasSoldFish == false)
+                {
+                    dialogue.PlayLineByID("FirstSell");
+                    hasSoldFish = true;
+                }
+                else
+                {
+                string[] possibleIDs = { "Sell1", "Sell2", "Sell3" };
+                string selectedID = possibleIDs[Random.Range(0, possibleIDs.Length)];
+                Debug.Log("Chosen dialogue ID: " + selectedID);
+                dialogue.PlayLineByID(selectedID);
+
+                }
+            }
+        }
+
+ 
+
 
     public void UpdateMoneyText()
     {
@@ -194,3 +221,5 @@ public class Inventory : MonoBehaviour
         SaveInventory();
     }
 }
+
+
