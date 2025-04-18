@@ -15,7 +15,7 @@ MonoBehaviour:
   fishName: Salmon
   minLength: 26
   maxLength: 58
-  basePrice: 25
+  basePrice: 50
   rarity: Rare
   description: 
   image: {fileID: 21300000, guid: 7c68c0d0e076bd8439ab3125b4a6845f, type: 3}
