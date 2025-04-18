@@ -9,6 +9,13 @@ public class ShopRodButton : MonoBehaviour
     public Sprite defaultSprite;
     public Sprite boughtSprite;
     public Sprite selectedSprite;
+    public int dialogueBuyLineID;
+    public int dialogueEquipLineID;
+    private ShopDialogue dialogue;
+
+    [Header("Audio")]
+    public AudioSource buySound;  // Sound for buying
+    public AudioSource equipSound;  // Sound for equipping
 
     public Inventory inventory;
     public FishingRodController rodController;
@@ -53,6 +60,9 @@ public class ShopRodButton : MonoBehaviour
 
     public void OnClick()
     {
+        ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
+
+        // Buying logic
         if (!isBought)
         {
             if (inventory.money >= price)
@@ -62,14 +72,39 @@ public class ShopRodButton : MonoBehaviour
                 inventory.boughtRods.Add(rodType);   // add to bought list
                 GetComponent<Image>().sprite = boughtSprite;
                 inventory.UpdateMoneyText();
+
+                // 🎵 Play BUY sound
+                if (buySound != null)
+                {
+                    buySound.Play();
+                }
+
+                // 🎤 Play BUY voice line
+                if (dialogue != null)
+                {
+                    dialogue.PlayLine(dialogueBuyLineID);
+                }
             }
         }
         else
         {
+            // Equipping logic (even after buying or if already bought)
             rodController.currentRod = rodType;
-            inventory.selectedRod = rodType;   // save selected rod
+            inventory.selectedRod = rodType;
             ResetAllButtons();
             GetComponent<Image>().sprite = selectedSprite;
+
+            // 🎵 Play EQUIP sound
+            if (equipSound != null)
+            {
+                equipSound.Play();
+            }
+
+            // 🎤 Play EQUIP voice line
+            if (dialogue != null)
+            {
+                dialogue.PlayLine(dialogueEquipLineID);
+            }
         }
 
         inventory.SaveInventory();

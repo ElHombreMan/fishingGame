@@ -7,6 +7,11 @@ public class ShopTrigger : MonoBehaviour
     public CinemachineFreeLook freeLookCam;
     public GameObject shopUI;
     public GameObject interactionButton;
+    public int dialogueBuyLineID;
+    public int dialogueEquipLineID;
+    private ShopDialogue dialogue;
+
+
 
     [Header("Audio")]
     public AudioSource shopBell;
