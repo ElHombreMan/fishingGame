@@ -7,24 +7,30 @@ public class ShopShipButton : MonoBehaviour
     public Sprite defaultSprite;
     public Sprite boughtSprite;
     public Inventory inventory;
-    public GameObject prefabToSpawn; 
-    public Transform spawnPoint;
-
-
+    public GameObject ShipThatEndsTheGame;
+    public int dialogueBuyLineID;
 
     private bool isBought = false;
     private Image buttonImage;
-    
+    private ShopDialogue dialogue;
+
     void Awake()
     {
         buttonImage = GetComponent<Image>();
+        dialogue = FindObjectOfType<ShopDialogue>(); // Find the dialogue system
     }
 
     void Start()
     {
-        prefabToSpawn.SetActive(false);
+        ShipThatEndsTheGame.SetActive(false);
         buttonImage.sprite = inventory.boughtShip ? boughtSprite : defaultSprite;
         isBought = inventory.boughtShip;
+
+        // If the ship was already bought, re-enable it on scene load
+        if (isBought && ShipThatEndsTheGame != null)
+        {
+            ShipThatEndsTheGame.SetActive(true);
+        }
     }
 
     public void OnClick()
@@ -38,26 +44,18 @@ public class ShopShipButton : MonoBehaviour
             isBought = true;
 
             buttonImage.sprite = boughtSprite;
-
-            ShipIsBought();
-            prefabToSpawn.SetActive(true);
-
             inventory.UpdateMoneyText();
             inventory.SaveInventory();
 
+            // Enable the ship in the scene
+            if (ShipThatEndsTheGame != null)
+                ShipThatEndsTheGame.SetActive(true);
+
+            // Play dialogue line
+            if (dialogue != null)
+                dialogue.PlayLine(dialogueBuyLineID);
+
             Debug.Log("Ship bought!");
         }
-    }
-
-    void ShipIsBought()
-    {
-        void SpawnPrefab()
-    {
-        if (prefabToSpawn != null && spawnPoint != null)
-        {
-        Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
-        }
-    }
-
     }
 }
