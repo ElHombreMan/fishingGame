@@ -13,8 +13,10 @@ public class WaterTeleport : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        
         if (!isFading && other.CompareTag("Player"))
         {
+            Debug.Log("Player on the water");
             StartCoroutine(TeleportWithFade());
         }
     }
