@@ -18,5 +18,5 @@ MonoBehaviour:
   basePrice: 13
   rarity: Common
   description: 
-  image: {fileID: 0}
-  icon: {fileID: 0}
+  image: {fileID: 21300000, guid: 3d6a7e0662e8be348a1d48f1172edfe3, type: 3}
+  icon: {fileID: 21300000, guid: 6da2e20839c887e428c753cbd981c608, type: 3}
