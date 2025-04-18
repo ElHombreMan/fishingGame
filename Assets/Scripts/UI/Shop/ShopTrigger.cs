@@ -11,6 +11,8 @@ public class ShopTrigger : MonoBehaviour
     [Header("Audio")]
     public AudioSource shopBell;
     public AudioSource KeyPressed;
+    public AudioSource backgroundMusic;
+    public AudioSource shopMusic;
 
     private bool isPlayerNear = false;
     private float storedXMaxSpeed, storedYMaxSpeed;
@@ -18,9 +20,9 @@ public class ShopTrigger : MonoBehaviour
     // Greeting system
     private bool FirstIntroduction = false;
     private const int FirstIntro = 0;
-    private const int Intro1 = 1;
-    private const int Intro2 = 2;
-    private const int Intro3 = 3;
+    private const int Intro1 = 2;
+    private const int Intro2 = 3;
+    private const int Intro3 = 4;
 
     private void Start()
     {
@@ -41,6 +43,9 @@ public class ShopTrigger : MonoBehaviour
                 LockCamera();
                 ShowCursor();
 
+                backgroundMusic.Pause();
+                shopMusic.Play();
+
                 shopBell.Play();
                 shopUI.SetActive(true);
                 interactionButton.SetActive(false);
@@ -56,7 +61,7 @@ public class ShopTrigger : MonoBehaviour
                     }
                     else
                     {
-                        int randomIntroIndex = Random.Range(Intro2, Intro3 + 1);
+                        int randomIntroIndex = Random.Range(Intro1, Intro3 + 1);
 
                         dialogue.PlayLine(randomIntroIndex);
                     }
@@ -78,7 +83,9 @@ public class ShopTrigger : MonoBehaviour
                 ShopExit();
                 KeyPressed.Play();
             }
+        
         }
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -117,6 +124,10 @@ public class ShopTrigger : MonoBehaviour
         ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
         if (dialogue != null)
             dialogue.StopLine();
+        
+        backgroundMusic.UnPause();
+        shopMusic.Stop();
+
     }
 
     void StoreCameraState()
