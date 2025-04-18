@@ -15,6 +15,13 @@ public class ShopTrigger : MonoBehaviour
     private bool isPlayerNear = false;
     private float storedXMaxSpeed, storedYMaxSpeed;
 
+    // Greeting system
+    private bool FirstIntroduction = false;
+    private const int FirstIntro = 0;
+    private const int Intro1 = 1;
+    private const int Intro2 = 2;
+    private const int Intro3 = 3;
+
     private void Start()
     {
         storedXMaxSpeed = freeLookCam.m_XAxis.m_MaxSpeed;
@@ -28,25 +35,36 @@ public class ShopTrigger : MonoBehaviour
             if (!shopUI.activeSelf)
             {
                 PlayerStateHandler.Instance.ChangeState(PlayerState.InShop);
-                
+
                 KeyPressed.Play();
                 StoreCameraState();
                 LockCamera();
                 ShowCursor();
-                
+
                 shopBell.Play();
                 shopUI.SetActive(true);
                 interactionButton.SetActive(false);
 
-                // First time shop dialogue
+                // GREETING DIALOGUE
+                ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
+                if (dialogue != null)
+                {
+                    if (!FirstIntroduction)
+                    {
+                        dialogue.PlayLine(FirstIntro);
+                        FirstIntroduction = true;
+                    }
+                    else
+                    {
+                        int randomIntroIndex = Random.Range(Intro2, Intro3 + 1);
+
+                        dialogue.PlayLine(randomIntroIndex);
+                    }
+                }
+
+                // Optional first-time shop open logic (if still needed)
                 if (!ShopStateManager.Current.hasOpenedShop)
                 {
-                    ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
-                    if (dialogue != null)
-                    {
-                        dialogue.PlayLine(0);
-                    }
-
                     ShopStateManager.Current.hasOpenedShop = true;
                     ShopStateManager.Save();
                 }
@@ -96,7 +114,6 @@ public class ShopTrigger : MonoBehaviour
             interactionButton.SetActive(true);
         }
 
-        // This remains just in case it’s called from other places too
         ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
         if (dialogue != null)
             dialogue.StopLine();
