@@ -8,7 +8,7 @@ public class Bobber : MonoBehaviour
 
     public void Setup(FishingRodController fishingRod)
     {
-        Debug.DrawRay(transform.position, Vector3.down * 10f, Color.red, 5f);
+        //Debug.DrawRay(transform.position, Vector3.down * 10f, Color.red, 5f);
         rod = fishingRod;
     }
 

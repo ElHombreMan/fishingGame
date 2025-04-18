@@ -11,8 +11,6 @@ public class ShopTrigger : MonoBehaviour
     public int dialogueEquipLineID;
     private ShopDialogue dialogue;
 
-
-
     [Header("Audio")]
     public AudioSource shopBell;
     public AudioSource KeyPressed;
@@ -88,9 +86,9 @@ public class ShopTrigger : MonoBehaviour
                 ShopExit();
                 KeyPressed.Play();
             }
-        
+
         }
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -108,6 +106,11 @@ public class ShopTrigger : MonoBehaviour
         {
             isPlayerNear = false;
             interactionButton.SetActive(false);
+
+            ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
+            if (dialogue != null)
+                dialogue.StopLine();
+
             ShopExit();
         }
     }
@@ -129,7 +132,7 @@ public class ShopTrigger : MonoBehaviour
         ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
         if (dialogue != null)
             dialogue.StopLine();
-        
+
         backgroundMusic.UnPause();
         shopMusic.Stop();
 
