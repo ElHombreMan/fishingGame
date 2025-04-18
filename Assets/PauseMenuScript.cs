@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenuScript : MonoBehaviour
 {
     public GameObject PausePane1;
-    private bool GameIsPaused = false;
+    public static bool GameIsPaused = false; //a global variable for other scripts as well
 
     // Update is called once per frame
     void Update()
@@ -29,18 +29,20 @@ public class PauseMenuScript : MonoBehaviour
 
     public void Pause() { 
         PausePane1.SetActive(true);
-        Time.timeScale = 0;
+        Time.timeScale = 0f;
         GameIsPaused = true;
-    
-    
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None; // Free the cursor
     }
 
     public void Continue() {
         PausePane1.SetActive(false);
-        Time.timeScale = 1;
+        Time.timeScale = 1f;
         GameIsPaused = false;
-    
-    
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked; // Re-lock the cursor
     }
 
     public void quitGame()
