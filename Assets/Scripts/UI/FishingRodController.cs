@@ -58,7 +58,7 @@ public class FishingRodController : MonoBehaviour
 
     private float chargeTimer = 0f;
     private bool isCharging = false;
-    private GameObject currentBobber;
+    public GameObject currentBobber;
     private Coroutine waitingForMinigameCoroutine;
     [HideInInspector] public FishData currentFish;
 

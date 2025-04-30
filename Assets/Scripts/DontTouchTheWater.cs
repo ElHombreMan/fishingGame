@@ -7,7 +7,8 @@ public class WaterTeleport : MonoBehaviour
     public Transform player;
     public Vector3 teleportPosition = new Vector3(302.08f, 13.26f, -592.87f);
     public Image fadeImage; // Assign a black UI Image here
-    public float fadeDuration = 1f;
+    public float fadeDuration = 0.3f;
+    public FishingRodController controller;
 
     private bool isFading = false;
 
@@ -23,6 +24,11 @@ public class WaterTeleport : MonoBehaviour
 
     IEnumerator TeleportWithFade()
     {
+        if(controller.currentBobber != null)
+        {
+            controller.ReelBack();//fixing bug
+        }
+        
         isFading = true;
 
         // Make sure the image is visible
