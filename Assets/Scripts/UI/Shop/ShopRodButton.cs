@@ -73,6 +73,12 @@ public class ShopRodButton : MonoBehaviour
                 GetComponent<Image>().sprite = boughtSprite;
                 inventory.UpdateMoneyText();
 
+                // Equipping logic (fixing issue)
+                rodController.currentRod = rodType;
+                inventory.selectedRod = rodType;
+                ResetAllButtons();
+                GetComponent<Image>().sprite = selectedSprite;
+
                 // 🎵 Play BUY sound
                 if (buySound != null)
                 {
