@@ -117,6 +117,10 @@ public class ShopTrigger : MonoBehaviour
 
     public void ShopExit()
     {
+        ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
+        if (dialogue != null)
+            dialogue.StopLine();
+
         shopUI.SetActive(false); // Close shop when leaving
 
         RestoreCameraState();
@@ -128,10 +132,6 @@ public class ShopTrigger : MonoBehaviour
         {
             interactionButton.SetActive(true);
         }
-
-        ShopDialogue dialogue = FindObjectOfType<ShopDialogue>();
-        if (dialogue != null)
-            dialogue.StopLine();
 
         backgroundMusic.UnPause();
         shopMusic.Stop();
