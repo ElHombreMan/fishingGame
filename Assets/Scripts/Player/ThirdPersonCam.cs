@@ -11,7 +11,7 @@ public class ThirdPersonCam : MonoBehaviour
     public Transform playerObj;
     public Rigidbody rb;
 
-    public float rotationSpeed;
+    float rotationSpeed = GlobalSettings.sensitivity;
 
     void Start()
     {
