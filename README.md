@@ -11,7 +11,7 @@ Our team of four designed, developed, and implemented every aspect of the projec
 
 **Bearly Afloat** combines stylized visuals, dynamic wave physics, and handcrafted art to create a relaxing yet engaging oceanic experience. Throughout the development process, we focused on performance, playability, and artistic identity.
 
-![Main_area_photo](assets/mainFishpick)
+![Main_area_photo](assets/mainFishpick.png)
 
 ---
 
