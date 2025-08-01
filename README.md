@@ -52,7 +52,6 @@ Once finalized, we rigged and animated them in **Blender**, ensuring expressive 
 
 ![Concept_art](assets/concept_art.jpg)
 
-
 ![Rigging](assets/rigging.gif)
 
 ---
@@ -62,6 +61,7 @@ Once finalized, we rigged and animated them in **Blender**, ensuring expressive 
 All 2D sprites were hand-drawn in **Procreate on an iPad**, giving the game a cohesive, hand-drawn aesthetic.  
 This art style helped define the game’s personality and guided our overall visual direction.
 
+![Sprites](assets/sprites.png)
 ---
 
 ## 🎮 Game Mechanics
