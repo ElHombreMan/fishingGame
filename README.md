@@ -47,7 +47,7 @@ Once finalized, we rigged and animated them in **Blender**, ensuring expressive 
 ![Concept_art](assets/concept_art.jpg)
 
 
-![Rigging](assets/rigging.png)
+![Rigging](assets/rigging.gif)
 
 ---
 
@@ -69,7 +69,7 @@ We implemented core gameplay systems entirely from scratch, including:
 - Fishing system with randomized fish types and difficulty levels
 
 
-![inventory](assets/inventory.png)
+![inventory](assets/Inventory.png)
 
 
 ![Fishing](assets/fishing.png)
