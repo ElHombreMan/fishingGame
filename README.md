@@ -39,6 +39,8 @@ Using **Voronoi noise**, we created randomized cloud patterns and displacement e
 We began with concept brainstorming and visual planning, followed by creating detailed character models.  
 Once finalized, we rigged and animated them in **Blender**, ensuring expressive and fluid movement that fits the game’s stylized world.
 
+![Concept_art](assets/concept_art.jpg)
+
 ---
 
 ## 🎨 Sprites & Art Style
