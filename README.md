@@ -34,6 +34,9 @@ To ensure performance efficiency, we used **normal maps** in our shaders to simu
 We generated dynamic cloudscapes by overlaying a custom mesh across the skybox.  
 Using **Voronoi noise**, we created randomized cloud patterns and displacement effects, resulting in the appearance of massive, drifting clouds—all with minimal computational cost.
 
+
+![Clouds](assets/clouds.png)
+
 ---
 
 ## 🎭 Character Design & Animation
@@ -42,6 +45,9 @@ We began with concept brainstorming and visual planning, followed by creating de
 Once finalized, we rigged and animated them in **Blender**, ensuring expressive and fluid movement that fits the game’s stylized world.
 
 ![Concept_art](assets/concept_art.jpg)
+
+
+![Rigging](assets/rigging.png)
 
 ---
 
@@ -60,7 +66,13 @@ We implemented core gameplay systems entirely from scratch, including:
 - Inventory management  
 - Interaction systems  
 - Shop system (buying and selling)  
-- Fishing system with randomized fish types and difficulty levels  
+- Fishing system with randomized fish types and difficulty levels
+
+
+![inventory](assets/inventory.png)
+
+
+![Fishing](assets/fishing.png)
 
 
 
