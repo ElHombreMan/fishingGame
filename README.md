@@ -1,15 +1,21 @@
 needa add images one sec and we can change a bit this is just the rough draft
 
+-need to add one section for the toon shader
+-need images of like the deafualt gerstner movement or something
+-need to reside that one giant concpet art image
+
 # Bearly Afloat
 
 **Bearly Afloat** is a stylized fishing adventure game built over the course of a semester.  
 Our team of four designed, developed, and implemented every aspect of the project—from concept art to final gameplay—while gaining hands-on experience with industry-relevant tools and techniques.
 
+
+![Logo](assets/logo.png)
 ---
 
 ## 🗺️ Overview
 
-**Bearly Afloat** combines stylized visuals, dynamic wave physics, and handcrafted art to create a relaxing yet engaging oceanic experience. Throughout the development process, we focused on performance, playability, and artistic identity.
+**Bearly Afloat** combines stylized visuals, dynamic wave physics, and handcrafted art to create a chill, relaxing fishing experince. Throughout the development process, we focused on performance, playability, and visuals.
 
 ![Main_area_photo](assets/mainFishpick.png)
 
