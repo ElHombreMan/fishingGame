@@ -25,6 +25,8 @@ To simulate realistic ocean movement, we implemented **Gerstner wave formulas** 
 
 To ensure performance efficiency, we used **normal maps** in our shaders to simulate small-scale surface details—such as ripples and minor waves. This technique gave the illusion of complexity without the need for heavy computations.
 
+![Wave_Normals](assets/waveNormals.png)
+
 ---
 
 ## ☁️ Cloud Effects
