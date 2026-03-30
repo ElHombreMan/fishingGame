@@ -1,9 +1,3 @@
-needa add images one sec and we can change a bit this is just the rough draft
-
--need to add one section for the toon shader
--need images of like the deafualt gerstner movement or something
--need to reside that one giant concpet art image
-
 # Bearly Afloat
 
 **Bearly Afloat** is a stylized fishing adventure game built over the course of a semester.  
